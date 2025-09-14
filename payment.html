@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - FutureNext</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#00c4ff,#7d2ae8);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .message-box {
+      background: rgba(255,255,255,0.1);
+      padding: 40px 60px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      animation: popUp 1s ease forwards;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      animation: fadeInText 1s ease forwards;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      animation: fadeInText 1.5s ease forwards;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: white;
+      color: #00c4ff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message-box">
+    <h1>Booking Submitted!</h1>
+    <p>Thank you for your booking. We will notify you via email soon.</p>
+    <button class="btn" onclick="goHome()">Go to Home</button>
+  </div>
+
+  <script>
+    // Optional: redirect to home after a few seconds automatically
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 8000); // 8 seconds
+
+    // Button click function
+    function goHome() {
+      window.location.href = 'index.html';
+    }
+  </script>
+
+</body>
+</html>

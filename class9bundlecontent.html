@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FUTURENEXT — Course Modules</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. MODERN THEME & ROOT VARIABLES --- */
+        :root {
+            --font-main: "Inter", system-ui, -apple-system, sans-serif;
+            /* Light Mode Palette */
+            --bg-light: #f4f7fa;
+            --card-light: #ffffff;
+            --text-main-light: #1a202c;
+            --text-muted-light: #718096;
+            --border-light: #e2e8f0;
+            --accent-light: #3b82f6;
+            --accent-soft-light: #e0e7ff;
+            /* Dark Mode Palette */
+            --bg-dark: #121826;
+            --card-dark: #1a2233;
+            --text-main-dark: #e2e8f0;
+            --text-muted-dark: #a0aec0;
+            --border-dark: #2d3748;
+            --accent-dark: #60a5fa;
+            --accent-soft-dark: #2c3a5e;
+            /* Default to Light Mode */
+            --bg: var(--bg-light);
+            --card: var(--card-light);
+            --text-main: var(--text-main-light);
+            --text-muted: var(--text-muted-light);
+            --border: var(--border-light);
+            --accent: var(--accent-light);
+            --accent-soft: var(--accent-soft-light);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        /* --- 2. DARK MODE THEME SWITCH --- */
+        html.dark {
+            --bg: var(--bg-dark);
+            --card: var(--card-dark);
+            --text-main: var(--text-main-dark);
+            --text-muted: var(--text-muted-dark);
+            --border: var(--border-dark);
+            --accent: var(--accent-dark);
+            --accent-soft: var(--accent-soft-dark);
+            color-scheme: dark;
+        }
+
+        /* --- 3. BASE & LAYOUT STYLES --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 12px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: var(--transition);
+        }
+
+        .layout {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 320px;
+            min-width: 280px;
+            flex-shrink: 0;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            /* Prevents flexbox overflow */
+        }
+
+        /* --- 4. MODERNIZED COMPONENTS --- */
+        /* Topbar with "Glassmorphism" effect */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        html.dark .topbar {
+            background: rgba(26, 34, 51, 0.7);
+        }
+
+        .brand .logo {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 22px;
+        }
+
+        .search-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--card);
+            color: var(--text-main);
+            font-size: 11.5px;
+            outline: none;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 0;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 22px;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        /* Modules / Accordion */
+        .modules {
+            background: var(--card);
+            padding: 12px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .module {
+            margin-bottom: 8px;
+        }
+
+        .module:last-child {
+            margin-bottom: 0;
+        }
+
+        .module-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .module-head:hover {
+            background: var(--accent-soft);
+        }
+
+        .caret {
+            transition: transform 0.3s cubic-bezier(.2, .9, .2, 1);
+        }
+
+        .module-head[aria-expanded="false"] .caret {
+            transform: rotate(-90deg);
+        }
+
+        .module-body {
+            padding: 0 8px 8px;
+            transition: max-height .32s cubic-bezier(.2, .9, .2, 1);
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        .topic {
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin: 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .topic:hover {
+            background: var(--accent-soft);
+            color: var(--text-main);
+        }
+
+        .topic.active {
+            color: var(--accent);
+            font-weight: 600;
+            background: var(--accent-soft);
+            border-left-color: var(--accent);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            height: 100%;
+        }
+
+        .content-card h1 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .content-card p {
+            color: var(--text-muted);
+        }
+
+        .thin-line {
+            border: 0;
+            height: 1px;
+            background-color: var(--border);
+            margin: 24px 0;
+        }
+
+        .notes h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        #notes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #notes-list li {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5;
+            font-weight: 500;
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        #notes-list li.modal-trigger {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        #notes-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .highlight {
+            background: var(--accent);
+            color: white;
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+
+        html.dark .highlight {
+            background: #facc15;
+            /* Yellow in dark mode */
+            color: #1a202c;
+        }
+
+        /* --- 5. ENHANCED MODAL STYLES --- */
+        .modal-container {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-container.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card);
+            color: var(--text-main);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+        }
+
+        .modal-container.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        #modal-close-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        #modal-body h2 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        #modal-body h3 {
+            color: var(--accent);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #modal-body h4 {
+            color: var(--accent);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #modal-body ul,
+        #modal-body ol {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        #modal-body li {
+            margin-bottom: 8px;
+        }
+
+        /* --- 6. RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            .layout {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .module-body.hidden-search {
+            max-height: 0 !important;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        #no-results-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            z-index: 2000;
+            min-width: 300px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        #no-results-message.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* --- Profile Dropdown Styles --- */
+        .profile-menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 110%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 8px 0;
+            min-width: 140px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 8px 14px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">FUTURENEXT</div>
+        </div>
+        <div class="search-wrap">
+            <input id="search" type="search" placeholder="Search lessons, topics..." aria-label="Search modules" />
+        </div>
+        <div class="top-actions">
+            <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                <span id="theme-icon-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                </span>
+                <span id="theme-icon-dark" class="hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </span>
+            </button>
+            <button id="notifBtn" class="icon-btn" title="Notifications">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+            </button>
+
+            <div class="profile-menu-container">
+                <button id="profileBtn" class="icon-btn" title="Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </button>
+
+                <div id="profileDropdown" class="dropdown">
+                    <button class="dropdown-item">Login</button>
+                    <button class="dropdown-item">Sign Up</button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <main class="layout">
+        <aside class="sidebar" id="sidebar">
+            <nav id="modules" class="modules">
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 1 — Subject Overviews</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson1-maths">Maths — Quick topics</li>
+                            <li class="topic" data-key="lesson1-science">Science — Quick topics</li>
+                            <li class="topic" data-key="lesson1-english">English — Quick topics</li>
+                            <li class="topic" data-key="lesson1-social-studies">Social Studies – basics + important
+                                concepts
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 2 — Study Techniques</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-shortcuts">Shortcuts</li>
+                            <li class="topic" data-key="lesson2-memory-tips">Memory Tips</li>
+                            <li class="topic" data-key="lesson2-concept">Concept Understanding</li>
+                            <li class="topic" data-key="lesson2-problem-solving">Problem solving approach</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 3 — Board Exam Awareness</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson3-marks">Importance of marks</li>
+                            <li class="topic" data-key="lesson3-exam-pattern">Exam Pattern</li>
+                            <li class="topic" data-key="lesson3-preparation">preparation schedule</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Career Awareness— Streams Introduction</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-science">Science</li>
+                            <li class="topic" data-key="lesson4-commerce">Commerce</li>
+                            <li class="topic" data-key="lesson4-arts">Arts</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Career Awareness— Early Career Awareness</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-sports">Sports</li>
+                            <li class="topic" data-key="lesson4-skill-based">skill-based careers</li>
+                            <li class="topic" data-key="lesson4-vocational">vocational options</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development — Soft Skills</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-communication">Communication</li>
+                            <li class="topic" data-key="lesson4-presentation">presentation</li>
+                            <li class="topic" data-key="lesson4-confidence">confidence</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development —Time Management</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-study-schedule">Study schedule</li>
+                            <li class="topic" data-key="lesson4-balancing">balancing school +hobbies</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development —Focus & Discipline</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-distractions">Avoid distractions (phone, games)</li>
+                            <li class="topic" data-key="lesson4-concentration">concentration techniques</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Sports & Extracurricular —Physical Growth</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-sports-participation">Sports participation</li>
+                            <li class="topic" data-key="lesson4-fitness">fitness routines </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Sports & Extracurricular —Extra Activities</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-clubs">Clubs, competitions</li>
+                            <li class="topic" data-key="lesson4-hobby">hobby development </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Mental Growth & Awareness -Mindset</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-growth-mindset">Growth mindset</li>
+                            <li class="topic" data-key="lesson4-stress">stress handling</li>
+                            <li class="topic" data-key="lesson4-motivation">motivation</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Mental Growth & Awareness -Parent Involvement</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson4-parent-tips">Tips for parents to guide without pressure
+                            </li>
+                            <li class="topic" data-key="lesson4-parent-awareness">awareness about pressure &
+                                expectations</li>
+                        </ul>
+                    </div>
+                </section>
+            </nav>
+        </aside>
+        <section class="content" id="content">
+            <div class="content-card">
+                <h1 id="content-title">Welcome</h1>
+                <p id="content-desc">Select a topic from the sidebar to begin.</p>
+                <hr class="thin-line" />
+                <div class="notes" id="content-notes" style="display: none;">
+                    <h3>Key Points</h3>
+                    <ul id="notes-list"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="no-results-message">
+        <h4>No results found 😥</h4>
+        <p>Try searching for something else.</p>
+    </div>
+    <div id="notes-source-content" class="hidden">
+        <div id="algebra-basics">
+            <h2>Algebra Basics — Class 9</h2>
+            <ol>
+                <li><strong>Algebraic Expressions & Terms</strong>
+                    <ul>
+                        <li>Variables, constants, coefficients</li>
+                        <li>Monomials, binomials, polynomials</li>
+                    </ul>
+                </li>
+                <li><strong>Basic Identities & Manipulation</strong>
+                    <ul>
+                        <li>Standard identities: (a+b)², a²−b²</li>
+                        <li>Using identities to expand and factor</li>
+                    </ul>
+                </li>
+                <li><strong>Linear Equations in One Variable</strong>
+                    <ul>
+                        <li>Forming equations from word problems</li>
+                        <li>Solving and checking solutions</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div id="geometry-basics">
+            <h2>Geometry Basics — Class 9</h2>
+            <ol>
+                <li><strong>Lines and Angles</strong>
+                    <ul>
+                        <li>Types of angles: acute, obtuse, right</li>
+                        <li>Complementary & supplementary angles</li>
+                    </ul>
+                </li>
+                <li><strong>Triangles</strong>
+                    <ul>
+                        <li>Classification by sides and angles</li>
+                        <li>Congruence of triangles (SSS, SAS, ASA)</li>
+                    </ul>
+                </li>
+                <li><strong>Surface Areas & Volumes</strong>
+                    <ul>
+                        <li>Formulas for cubes, spheres, cylinders</li>
+                        <li>Real-life applications and problems</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div id="practice-papers">
+            <h2>Practice Old Papers</h2>
+            <ol>
+                <li><strong>Mathematics</strong>
+                    <ul>
+                        <li>Maths Paper 2023</li>
+                        <li>Maths Paper 2022</li>
+                    </ul>
+                </li>
+                <li><strong>Science</strong>
+                    <ul>
+                        <li>Science Paper 2023</li>
+                        <li>Science Paper 2022</li>
+                    </ul>
+                </li>
+                <li><strong>English</strong>
+                    <ul>
+                        <li>English Paper 2023</li>
+                        <li>English Paper 2022</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div id="physics-laws">
+            <h2>Physics — Laws of Motion</h2>
+            <ol>
+                <li><strong>Newton’s First Law of Motion (Law of Inertia)</strong>
+                    <p>A body continues to be in its state of rest or uniform motion in a straight line unless acted
+                        upon by an external force.</p>
+                    <p><em>Shortcut:</em> “Object stays lazy unless forced.”</p>
+                </li>
+                <li><strong>Newton’s Second Law of Motion</strong>
+                    <p>The rate of change of momentum of a body is directly proportional to the applied force and takes
+                        place in the direction of the force.</p>
+                    <p><strong>Formula:</strong> F = ma (Force = mass × acceleration).</p>
+                </li>
+                <li><strong>Newton’s Third Law of Motion</strong>
+                    <p>To every action, there is an equal and opposite reaction.</p>
+                    <p><em>Shortcut:</em> “Every kick gets a kick back.”</p>
+                </li>
+            </ol>
+        </div>
+        <div id="chemistry-periodic">
+            <h2>Periodic Table of Elements</h2>
+            <pre
+                style="font-size:12px;line-height:1.4;margin:0;"> PERIODIC TABLE OF ELEMENTS ----------------------------------------------------------------------------------------- H He ----------------------------------------------------------------------------------------- Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La* Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac**Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og ----------------------------------------------------------------------------------------- *Lanthanides: La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu **Actinides: Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr ----------------------------------------------------------------------------------------- </pre>
+        </div>
+        <div id="english-comprehension">
+            <h2>Practice Comprehension — Passage List</h2>
+            <ul>
+                <li>The Honest Woodcutter</li>
+                <li>The Clever Crow</li>
+                <li>A Visit to the Zoo</li>
+                <li>The Brave Soldier</li>
+                <li>The Importance of Trees</li>
+                <li>The Greedy Dog</li>
+                <li>The Value of Time</li>
+                <li>The Farmer and His Sons</li>
+                <li>The Wise King</li>
+                <li>A Rainy Day</li>
+            </ul>
+        </div>
+        <div id="essay-writing">
+            <h2>Essay Writing</h2>
+            <p>Writing essays becomes easy when you know the shortcuts.
+                The key is not to memorize full essays but to master structure, connectors, and quick ideas.
+                If you follow a simple formula, you can write any essay in less time and still score well.</p>
+            <h3>🔑 Hidden Tricks for Essay Writing</h3>
+            <ul>
+                <li><strong>3-Part Formula:</strong> Introduction → Body → Conclusion (always keep this in mind).</li>
+                <li><strong>Use Connectors:</strong> Firstly, Moreover, On the other hand, In conclusion.</li>
+                <li><strong>Keep Paragraphs Short:</strong> 4–5 lines each look neat and readable.</li>
+                <li><strong>Strong Opening Line:</strong> Start with a quote, proverb, or question to grab attention.
+                </li>
+                <li><strong>Examples Work Best:</strong> Add a real-life example to make your essay practical.</li>
+                <li><strong>Word Bank:</strong> Learn 5–10 power words (like crucial, enhance, consequence, significant)
+                    and use them.</li>
+                <li><strong>Stay Relevant:</strong> Don’t drift from the topic;
+                    stick to the main idea.</li>
+                <li><strong>Time Saver:</strong> Write points first, then expand them into sentences.</li>
+            </ul>
+            <h4>✨ Quick Template (Easy to Remember)</h4>
+            <ul>
+                <li><strong>Intro:</strong> Start with a general statement + topic definition.</li>
+                <li><strong>Body 1:</strong> First main idea + example.</li>
+                <li><strong>Body 2:</strong> Second main idea + example.</li>
+                <li><strong>Conclusion:</strong> Summarize + personal opinion.</li>
+            </ul>
+        </div>
+        <div id="history-box">
+            <h2>History Notes</h2>
+            <p>This is where your History notes will be displayed. You can add content such as key dates, figures, and
+                events here.</p>
+        </div>
+        <div id="geography-box">
+            <h2>Geography Notes</h2>
+            <p>This is where your Geography notes will be displayed. You can add content such as maps, geographical
+                features, and climate information here.</p>
+        </div>
+        <div id="civics-box">
+            <h2>Civics Notes</h2>
+            <p>This is where your Civics notes will be displayed. You can add content such as government structures,
+                citizen rights, and duties here.</p>
+        </div>
+        <div id="shortcuts-box">
+            <h2>Study Shortcuts</h2>
+            <p>Learning shortcuts can help you memorize information and solve problems faster.</p>
+            <ul>
+                <li><strong>Mnemonics:</strong> Use a phrase or rhyme to remember a sequence of facts.</li>
+                <li><strong>Acronyms:</strong> Create a word from the first letter of each item to be remembered.</li>
+                <li><strong>Visualization:</strong> Create mental images or diagrams to connect concepts.</li>
+                <li><strong>Chunking:</strong> Group similar information together to make it easier to recall.</li>
+            </ul>
+        </div>
+        <div id="memory-tips-box">
+            <h2>Memory Tips</h2>
+            <p>Improve your memory with these techniques.</p>
+            <ul>
+                <li><strong>Spaced Repetition:</strong> Review information at increasing intervals over time.</li>
+                <li><strong>Active Recall:</strong> Test yourself by trying to remember information without looking at
+                    your notes.</li>
+                <li><strong>Mind Palace Technique:</strong> Associate information with a familiar physical space.</li>
+                <li><strong>Get Enough Sleep:</strong> Sleep is crucial for consolidating memories.</li>
+            </ul>
+        </div>
+        <div id="concept-box">
+            <h2>Concept Understanding</h2>
+            <p>Don't just memorize, understand the "why" and "how."</p>
+            <ul>
+                <li><strong>Explain it to Someone Else:</strong> If you can teach it, you understand it.</li>
+                <li><strong>Ask "Why?":</strong> Constantly question the underlying principles.</li>
+                <li><strong>Connect New to Old:</strong> Relate new information to what you already know.</li>
+                <li><strong>Diagrams & Flowcharts:</strong> Visually map out complex processes.</li>
+            </ul>
+        </div>
+        <div id="problem-solving-box">
+            <h2>Problem-Solving Approach</h2>
+            <p>A systematic approach to solving problems.</p>
+            <ol>
+                <li><strong>Understand the Problem:</strong> Read the question carefully.</li>
+                <li><strong>Devise a Plan:</strong> Think of different ways to solve it.</li>
+                <li><strong>Execute the Plan:</strong> Work through the steps.</li>
+                <li><strong>Review the Solution:</strong> Check if your answer makes sense.</li>
+            </ol>
+        </div>
+        <div id="marks-box">
+            <h2>Importance of Marks</h2>
+            <p>Marks are not everything, but they do matter for your future.</p>
+            <ul>
+                <li><strong>Eligibility:</strong> Many colleges and courses have minimum mark requirements.</li>
+                <li><strong>Scholarships:</strong> Good marks can help you secure financial aid.</li>
+                <li><strong>Confidence:</strong> Doing well in exams boosts your self-esteem and motivation.</li>
+                <li><strong>Foundation:</strong> A strong academic foundation prepares you for higher studies.</li>
+            </ul>
+        </div>
+        <div id="exam-pattern-box">
+            <h2>Exam Pattern</h2>
+            <p>Familiarize yourself with the exam structure.</p>
+            <ul>
+                <li><strong>Format:</strong> Multiple choice, short answer, or long essay questions?</li>
+                <li><strong>Marking Scheme:</strong> How many marks is each question worth?</li>
+                <li><strong>Time Allocation:</strong> How much time should you spend on each section?</li>
+                <li><strong>Past Papers:</strong> Practice with previous years' question papers.</li>
+            </ul>
+        </div>
+        <div id="preparation-box">
+            <h2>Preparation Schedule</h2>
+            <p>A good schedule is key to success.</p>
+            <ul>
+                <li><strong>Create a Timetable:</strong> Allocate specific times for each subject.</li>
+                <li><strong>Break Down Topics:</strong> Don't try to study everything at once.</li>
+                <li><strong>Include Breaks:</strong> Schedule short breaks to avoid burnout.</li>
+                <li><strong>Revision Days:</strong> Dedicate time to revise what you have studied.</li>
+            </ul>
+        </div>
+        <div id="science-box">
+            <h2>Science Stream</h2>
+            <p>The Science stream is a popular choice for students interested in technology, medicine, and research.</p>
+            <ul>
+                <li><strong>Core Subjects:</strong> Physics, Chemistry, Biology, Mathematics.</li>
+                <li><strong>Career Options:</strong> Doctor, Engineer, Scientist, Architect.</li>
+                <li><strong>Skills Required:</strong> Logical thinking, problem-solving, and a curious mind.</li>
+            </ul>
+        </div>
+        <div id="commerce-box">
+            <h2>Commerce Stream</h2>
+            <p>The Commerce stream is for students interested in business, finance, and economics.</p>
+            <ul>
+                <li><strong>Core Subjects:</strong> Accountancy, Business Studies, Economics, Mathematics.</li>
+                <li><strong>Career Options:</strong> Accountant, Banker, Financial Advisor, Entrepreneur.</li>
+                <li><strong>Skills Required:</strong> Analytical skills, attention to detail, and good with numbers.
+                </li>
+            </ul>
+        </div>
+        <div id="arts-box">
+            <h2>Arts Stream</h2>
+            <p>The Arts stream is a great choice for students with a creative and humanitarian bent.</p>
+            <ul>
+                <li><strong>Core Subjects:</strong> History, Political Science, Economics, Sociology, Psychology.</li>
+                <li><strong>Career Options:</strong> Writer, Journalist, Lawyer, Designer, Teacher.</li>
+                <li><strong>Skills Required:</strong> Strong communication, critical thinking, and creativity.</li>
+            </ul>
+        </div>
+        <div id="sports-box">
+            <h2>Sports as a Career</h2>
+            <p>Turning your passion for sports into a profession.</p>
+            <ul>
+                <li><strong>Professional Athlete:</strong> Pursue a career as a professional in your chosen sport.</li>
+                <li><strong>Coach or Trainer:</strong> Help others improve their skills and fitness.</li>
+                <li><strong>Sports Management:</strong> Work behind the scenes in sports administration.</li>
+                <li><strong>Sports Journalism:</strong> Write or report about sports.</li>
+            </ul>
+        </div>
+        <div id="skill-based-box">
+            <h2>Skill-Based Careers</h2>
+            <p>Jobs that rely on a specific skill or trade rather than a traditional degree.</p>
+            <ul>
+                <li><strong>Examples:</strong> Web Designer, Graphic Artist, Chef, Photographer, Plumber, Electrician.
+                </li>
+                <li><strong>Pros:</strong> Often require less formal education and can be very rewarding.</li>
+                <li><strong>How to Start:</strong> Take short-term courses, apprenticeships, or online certifications.
+                </li>
+            </ul>
+        </div>
+        <div id="vocational-box">
+            <h2>Vocational Options</h2>
+            <p>Practical training for a specific job or career.</p>
+            <ul>
+                <li><strong>Examples:</strong> IT Technician, Nurse, Automotive Mechanic, Hair Stylist.</li>
+                <li><strong>Benefits:</strong> Quick entry into the job market and high demand for skilled workers.</li>
+                <li><strong>Where to Study:</strong> Vocational schools, community colleges, and trade schools.</li>
+            </ul>
+        </div>
+        <div id="communication-box">
+            <h2>Communication Skills</h2>
+            <p>Effective communication is a key soft skill for any career.</p>
+            <ul>
+                <li><strong>Verbal Communication:</strong> Speaking clearly and confidently.</li>
+                <li><strong>Non-Verbal Communication:</strong> Body language and facial expressions.</li>
+                <li><strong>Active Listening:</strong> Paying full attention to what others are saying.</li>
+                <li><strong>Written Communication:</strong> Writing clear and concise emails, reports, etc.</li>
+            </ul>
+        </div>
+        <div id="presentation-box">
+            <h2>Presentation Skills</h2>
+            <p>Tips for giving a great presentation.</p>
+            <ul>
+                <li><strong>Know Your Audience:</strong> Tailor your content to who you are speaking to.</li>
+                <li><strong>Structure:</strong> Start with an intro, follow with the main points, and end with a
+                    conclusion.</li>
+                <li><strong>Practice:</strong> Rehearse your presentation to feel more confident.</li>
+                <li><strong>Visual Aids:</strong> Use slides or props to enhance your talk.</li>
+            </ul>
+        </div>
+        <div id="confidence-box">
+            <h2>Building Confidence</h2>
+            <p>Confidence is a skill that can be developed over time.</p>
+            <ul>
+                <li><strong>Set Small Goals:</strong> Achieveable goals build momentum and self-belief.</li>
+                <li><strong>Positive Self-Talk:</strong> Replace negative thoughts with positive affirmations.</li>
+                <li><strong>Dress for Success:</strong> Wearing clothes that make you feel good can boost your mood.
+                </li>
+                <li><strong>Body Language:</strong> Stand up straight and make eye contact to project confidence.</li>
+            </ul>
+        </div>
+        <div id="study-schedule-box">
+            <h2>Study Schedule</h2>
+            <p>A well-planned study schedule keeps you on track.</p>
+            <ul>
+                <li><strong>Daily Goals:</strong> Set a few small, achievable goals for each study session.</li>
+                <li><strong>Balance:</strong> Don't forget to schedule time for relaxation and hobbies.</li>
+                <li><strong>Prioritize:</strong> Focus on the most important subjects first.</li>
+                <li><strong>Consistency:</strong> Stick to your schedule as much as possible.</li>
+            </ul>
+        </div>
+        <div id="balancing-box">
+            <h2>Balancing School & Hobbies</h2>
+            <p>Juggling academics and extracurriculars is important for overall development.</p>
+            <ul>
+                <li><strong>Time Blocking:</strong> Dedicate specific blocks of time for schoolwork and hobbies.</li>
+                <li><strong>Quality over Quantity:</strong> Focus on making the most of your time rather than trying to
+                    do too much.</li>
+                <li><strong>Communicate:</strong> Talk to your parents or teachers about your schedule if you feel
+                    overwhelmed.</li>
+                <li><strong>Find Hobbies that Help:</strong> Hobbies like playing an instrument or sports can improve
+                    focus and discipline.</li>
+            </ul>
+        </div>
+        <div id="distractions-box">
+            <h2>Avoiding Distractions</h2>
+            <p>Tips to create a distraction-free study environment.</p>
+            <ul>
+                <li><strong>Put Away Your Phone:</strong> The single biggest distraction. Keep it in another room.</li>
+                <li><strong>Clean Workspace:</strong> A tidy desk helps you focus better.</li>
+                <li><strong>Noise-Cancelling Headphones:</strong> Use them to block out ambient noise.</li>
+                <li><strong>Limit Social Media:</strong> Log out of social media accounts or use an app blocker.</li>
+            </ul>
+        </div>
+        <div id="concentration-box">
+            <h2>Concentration Techniques</h2>
+            <p>Improve your ability to focus for longer periods.</p>
+            <ul>
+                <li><strong>The Pomodoro Technique:</strong> Work in focused bursts (e.g., 25 minutes) with short
+                    breaks.</li>
+                <li><strong>Meditation:</strong> Practice mindfulness to train your brain to focus.</li>
+                <li><strong>Single-tasking:</strong> Avoid multitasking; focus on one thing at a time.</li>
+                <li><strong>Brain Games:</strong> Puzzles and memory games can improve concentration.</li>
+            </ul>
+        </div>
+        <div id="sports-participation-box">
+            <h2>Sports Participation</h2>
+            <p>The benefits of playing sports for your physical and mental health.</p>
+            <ul>
+                <li><strong>Physical Fitness:</strong> Improves strength, endurance, and agility.</li>
+                <li><strong>Teamwork:</strong> Teaches you how to work with others.</li>
+                <li><strong>Discipline:</strong> Helps you develop self-control and work ethic.</li>
+                <li><strong>Stress Relief:</strong> A great way to unwind and release stress.</li>
+            </ul>
+        </div>
+        <div id="fitness-box">
+            <h2>Fitness Routines</h2>
+            <p>Simple fitness routines to stay active.</p>
+            <ul>
+                <li><strong>Warm-up:</strong> Start with a short warm-up to prevent injuries.</li>
+                <li><strong>Cardio:</strong> Activities like running, cycling, or jumping jacks.</li>
+                <li><strong>Strength Training:</strong> Bodyweight exercises like push-ups and squats.</li>
+                <li><strong>Cool-down:</strong> End with stretching to improve flexibility.</li>
+            </ul>
+        </div>
+        <div id="clubs-box">
+            <h2>Clubs & Competitions</h2>
+            <p>Join clubs and competitions to develop new skills and meet people.</p>
+            <ul>
+                <li><strong>Explore Interests:</strong> Find clubs related to your hobbies.</li>
+                <li><strong>Develop Skills:</strong> Competitions push you to improve and learn.</li>
+                <li><strong>Build a Resume:</strong> These activities show you are well-rounded.</li>
+                <li><strong>Networking:</strong> Meet people with similar interests.</li>
+            </ul>
+        </div>
+        <div id="hobby-box">
+            <h2>Hobby Development</h2>
+            <p>The importance of hobbies for personal growth.</p>
+            <ul>
+                <li><strong>Stress Relief:</strong> Hobbies are a great way to relax and de-stress.</li>
+                <li><strong>Skill Building:</strong> Learn new skills outside of academics.</li>
+                <li><strong>Creativity:</strong> Hobbies like drawing or writing spark creativity.</li>
+                <li><strong>Self-Discovery:</strong> Find out what you are truly passionate about.</li>
+            </ul>
+        </div>
+        <div id="growth-mindset-box">
+            <h2>Growth Mindset</h2>
+            <p>Believe that your abilities can be developed through dedication and hard work.</p>
+            <ul>
+                <li><strong>Embrace Challenges:</strong> See challenges as opportunities to grow.</li>
+                <li><strong>Learn from Failure:</strong> Don't be afraid to make mistakes; learn from them.</li>
+                <li><strong>Effort is Key:</strong> Understand that your hard work determines your success.</li>
+                <li><strong>Seek Feedback:</strong> Use feedback to improve and get better.</li>
+            </ul>
+        </div>
+        <div id="stress-box">
+            <h2>Stress Handling</h2>
+            <p>Tips to manage and cope with academic stress.</p>
+            <ul>
+                <li><strong>Breathing Exercises:</strong> Practice deep breathing to calm your mind.</li>
+                <li><strong>Talk to Someone:</strong> Share your feelings with a trusted friend or family member.</li>
+                <li><strong>Take Breaks:</strong> Step away from your work for a few minutes.</li>
+                <li><strong>Prioritize:</strong> Focus on what's most important and don't try to do everything at once.
+                </li>
+            </ul>
+        </div>
+        <div id="motivation-box">
+            <h2>Motivation</h2>
+            <p>Find the drive to achieve your goals.</p>
+            <ul>
+                <li><strong>Set a Reward:</strong> Promise yourself a reward for finishing a task.</li>
+                <li><strong>Visualize Success:</strong> Imagine yourself achieving your goal.</li>
+                <li><strong>Break Down Tasks:</strong> Large tasks can be overwhelming; break them into smaller,
+                    manageable steps.</li>
+                <li><strong>Find Inspiration:</strong> Read about people who have achieved great things.</li>
+            </ul>
+        </div>
+        <div id="parent-tips-box">
+            <h2>Tips for Parents</h2>
+            <p>How parents can guide without pressure.</p>
+            <ul>
+                <li><strong>Provide Support:</strong> Be a source of encouragement and comfort.</li>
+                <li><strong>Listen:</strong> Pay attention to your child's feelings and concerns.</li>
+                <li><strong>Focus on Effort:</strong> Praise their hard work, not just the result.</li>
+                <li><strong>Encourage Hobbies:</strong> Support their interests outside of academics.</li>
+            </ul>
+        </div>
+        <div id="parent-awareness-box">
+            <h2>Awareness about Pressure</h2>
+            <p>Helping parents understand the signs of pressure and stress in their children.</p>
+            <ul>
+                <li><strong>Signs to Look For:</strong> Changes in behavior, loss of interest in hobbies, and sleep
+                    problems.</li>
+                <li><strong>Open Communication:</strong> Encourage your child to talk openly about their feelings.</li>
+                <li><strong>Set Realistic Expectations:</strong> Understand that every child is different and has unique
+                    strengths.</li>
+                <li><strong>Seek Professional Help:</strong> Don't hesitate to consult a counselor if needed.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal-container" class="modal-container">
+        <div id="modal-content" class="modal-content">
+            <button id="modal-close-btn">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentData = {
+                "lesson1-maths": {
+                    title: "Maths — Key Concepts",
+                    desc: "Short overview of important maths topics.",
+                    notes: ["Algebra basics", "Geometry basics", "Practice old papers"]
+                },
+                "lesson1-science": {
+                    title: "Science — Quick Overview",
+                    desc: "Physics, Chemistry and Biology pointers.",
+                    notes: ["Physics: laws of motion", "Chemistry: periodic table"]
+                },
+                "lesson1-english": {
+                    title: "English — Quick Overview",
+                    desc: "Tips for comprehension, writing, and grammar.",
+                    notes: ["Practice comprehension", "Essay writing"]
+                },
+                "lesson1-social-studies": {
+                    title: "Social Studies – Key Concepts",
+                    desc: "Foundational topics and key concepts in social studies.",
+                    notes: ["History", "Geography", "Civics"]
+                },
+                "lesson2-shortcuts": {
+                    title: "Study Shortcuts",
+                    desc: "Use clever tricks to learn faster.",
+                    notes: ["Shortcuts", "Memory Tips", "Concept Understanding", "Problem solving approach"]
+                },
+                "lesson2-memory-tips": {
+                    title: "Memory Techniques",
+                    desc: "Effective ways to improve memory.",
+                    notes: ["Shortcuts", "Memory Tips", "Concept Understanding", "Problem solving approach"]
+                },
+                "lesson2-concept": {
+                    title: "Understanding Concepts",
+                    desc: "Go beyond memorization.",
+                    notes: ["Shortcuts", "Memory Tips", "Concept Understanding", "Problem solving approach"]
+                },
+                "lesson2-problem-solving": {
+                    title: "Problem Solving",
+                    desc: "A step-by-step approach to difficult problems.",
+                    notes: ["Shortcuts", "Memory Tips", "Concept Understanding", "Problem solving approach"]
+                },
+                "lesson3-marks": {
+                    title: "Importance of Marks",
+                    desc: "Why marks are a crucial part of your academic journey.",
+                    notes: ["Importance of marks", "Exam Pattern", "preparation schedule"]
+                },
+                "lesson3-exam-pattern": {
+                    title: "Understanding Exam Pattern",
+                    desc: "Tips and tricks to score better.",
+                    notes: ["Importance of marks", "Exam Pattern", "preparation schedule"]
+                },
+                "lesson3-preparation": {
+                    title: "Board Exam Preparation",
+                    desc: "A guide to preparing effectively.",
+                    notes: ["Importance of marks", "Exam Pattern", "preparation schedule"]
+                },
+                "lesson4-science": {
+                    title: "Science Stream",
+                    desc: "A look into the world of science careers.",
+                    notes: ["Science", "Commerce", "Arts"]
+                },
+                "lesson4-commerce": {
+                    title: "Commerce Stream",
+                    desc: "A look into the world of commerce careers.",
+                    notes: ["Science", "Commerce", "Arts"]
+                },
+                "lesson4-arts": {
+                    title: "Arts Stream",
+                    desc: "A look into the world of arts careers.",
+                    notes: ["Science", "Commerce", "Arts"]
+                },
+                "lesson4-sports": {
+                    title: "Sports as a Career",
+                    desc: "Making a living from your passion for sports.",
+                    notes: ["Sports", "skill-based careers", "vocational options"]
+                },
+                "lesson4-skill-based": {
+                    title: "Skill-Based Careers",
+                    desc: "Learn how to monetize your skills.",
+                    notes: ["Sports", "skill-based careers", "vocational options"]
+                },
+                "lesson4-vocational": {
+                    title: "Vocational Options",
+                    desc: "Choosing a practical career path.",
+                    notes: ["Sports", "skill-based careers", "vocational options"]
+                },
+                "lesson4-communication": {
+                    title: "Communication",
+                    desc: "The importance of communication in professional and personal life.",
+                    notes: ["Communication", "presentation", "confidence"]
+                },
+                "lesson4-presentation": {
+                    title: "Presentation",
+                    desc: "Mastering the art of public speaking.",
+                    notes: ["Communication", "presentation", "confidence"]
+                },
+                "lesson4-confidence": {
+                    title: "Confidence",
+                    desc: "Building self-confidence for success.",
+                    notes: ["Communication", "presentation", "confidence"]
+                },
+                "lesson4-study-schedule": {
+                    title: "Study Schedule",
+                    desc: "How to create an effective study timetable.",
+                    notes: ["Study schedule", "balancing school +hobbies"]
+                },
+                "lesson4-balancing": {
+                    title: "Balancing School & Hobbies",
+                    desc: "Tips for managing your time effectively.",
+                    notes: ["Study schedule", "balancing school +hobbies"]
+                },
+                "lesson4-distractions": {
+                    title: "Focus & Discipline",
+                    desc: "Staying focused to achieve your goals.",
+                    notes: ["Avoid distractions (phone, games)", "concentration techniques"]
+                },
+                "lesson4-concentration": {
+                    title: "Concentration Techniques",
+                    desc: "Improving your focus and discipline.",
+                    notes: ["Avoid distractions (phone, games)", "concentration techniques"]
+                },
+                "lesson4-sports-participation": {
+                    title: "Sports & Extracurricular",
+                    desc: "The benefits of physical activities.",
+                    notes: ["Sports participation", "fitness routines"]
+                },
+                "lesson4-fitness": {
+                    title: "Physical Growth",
+                    desc: "The importance of physical well-being.",
+                    notes: ["Sports participation", "fitness routines"]
+                },
+                "lesson4-clubs": {
+                    title: "Extra Activities",
+                    desc: "How to develop skills outside of academics.",
+                    notes: ["Clubs, competitions", "hobby development"]
+                },
+                "lesson4-hobby": {
+                    title: "Hobby Development",
+                    desc: "Finding and nurturing your passions.",
+                    notes: ["Clubs, competitions", "hobby development"]
+                },
+                "lesson4-growth-mindset": {
+                    title: "Mental Growth & Awareness",
+                    desc: "Cultivating a mindset for success.",
+                    notes: ["Growth mindset", "stress handling", "motivation"]
+                },
+                "lesson4-stress": {
+                    title: "Stress Handling",
+                    desc: "Coping with pressure and expectations.",
+                    notes: ["Growth mindset", "stress handling", "motivation"]
+                },
+                "lesson4-motivation": {
+                    title: "Motivation",
+                    desc: "Finding inspiration and drive.",
+                    notes: ["Growth mindset", "stress handling", "motivation"]
+                },
+                "lesson4-parent-tips": {
+                    title: "Parent Involvement",
+                    desc: "The role of parents in a child's education.",
+                    notes: ["Tips for parents to guide without pressure", "awareness about pressure & expectations"]
+                },
+                "lesson4-parent-awareness": {
+                    title: "Parental Awareness",
+                    desc: "Understanding the challenges students face.",
+                    notes: ["Tips for parents to guide without pressure", "awareness about pressure & expectations"]
+                },
+            };
+
+            const modulesEl = document.getElementById('modules');
+            const contentTitle = document.getElementById('content-title');
+            const contentDesc = document.getElementById('content-desc');
+            const notesList = document.getElementById('notes-list');
+            const modalContainer = document.getElementById('modal-container');
+            const modalBody = document.getElementById('modal-body');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const searchInput = document.getElementById('search');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const contentNotes = document.getElementById('content-notes');
+
+            function loadContent(key) {
+                const data = contentData[key];
+                if (!data) {
+                    contentNotes.style.display = 'none';
+                    return;
+                }
+                contentTitle.textContent = data.title;
+                contentDesc.textContent = data.desc;
+                notesList.innerHTML = '';
+                contentNotes.style.display = 'block';
+
+                const modalTriggers = [
+                    "algebra basics",
+                    "geometry basics",
+                    "practice old papers",
+                    "physics: laws of motion",
+                    "chemistry: periodic table",
+                    "practice comprehension",
+                    "essay writing",
+                    "history",
+                    "geography",
+                    "civics",
+                    "shortcuts",
+                    "memory tips",
+                    "concept understanding",
+                    "problem solving approach",
+                    "importance of marks",
+                    "exam pattern",
+                    "preparation schedule",
+                    "science",
+                    "commerce",
+                    "arts",
+                    "sports",
+                    "skill-based careers",
+                    "vocational options",
+                    "communication",
+                    "presentation",
+                    "confidence",
+                    "study schedule",
+                    "balancing school +hobbies",
+                    "avoid distractions (phone, games)",
+                    "concentration techniques",
+                    "sports participation",
+                    "fitness routines",
+                    "clubs, competitions",
+                    "hobby development",
+                    "growth mindset",
+                    "stress handling",
+                    "motivation",
+                    "tips for parents to guide without pressure",
+                    "awareness about pressure & expectations"
+                ];
+
+                data.notes.forEach(n => {
+                    const li = document.createElement('li');
+                    li.textContent = n;
+                    if (modalTriggers.includes(n.toLowerCase())) {
+                        li.classList.add('modal-trigger');
+                    }
+                    notesList.appendChild(li);
+                });
+            }
+
+            modulesEl.addEventListener('click', (e) => {
+                const topic = e.target.closest('.topic');
+                if (topic) {
+                    modulesEl.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+                    topic.classList.add('active');
+                    loadContent(topic.dataset.key);
+                }
+                const head = e.target.closest('.module-head');
+                if (head) {
+                    const body = head.nextElementSibling;
+                    const isExpanded = head.getAttribute('aria-expanded') === 'true';
+                    if (!head.classList.contains('active-search')) {
+                        head.setAttribute('aria-expanded', !isExpanded);
+                        body.style.maxHeight = isExpanded ? '0' : body.scrollHeight + 'px';
+                    }
+                }
+            });
+
+            notesList.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('modal-trigger')) return;
+                const noteText = e.target.textContent.toLowerCase().trim();
+                const sourceId = {
+                    'algebra basics': 'algebra-basics',
+                    'geometry basics': 'geometry-basics',
+                    'practice old papers': 'practice-papers',
+                    'physics: laws of motion': 'physics-laws',
+                    'chemistry: periodic table': 'chemistry-periodic',
+                    'practice comprehension': 'english-comprehension',
+                    'essay writing': 'essay-writing',
+                    'history': 'history-box',
+                    'geography': 'geography-box',
+                    'civics': 'civics-box',
+                    'shortcuts': 'shortcuts-box',
+                    'memory tips': 'memory-tips-box',
+                    'concept understanding': 'concept-box',
+                    'problem solving approach': 'problem-solving-box',
+                    'importance of marks': 'marks-box',
+                    'exam pattern': 'exam-pattern-box',
+                    'preparation schedule': 'preparation-box',
+                    'science': 'science-box',
+                    'commerce': 'commerce-box',
+                    'arts': 'arts-box',
+                    'sports': 'sports-box',
+                    'skill-based careers': 'skill-based-box',
+                    'vocational options': 'vocational-box',
+                    'communication': 'communication-box',
+                    'presentation': 'presentation-box',
+                    'confidence': 'confidence-box',
+                    'study schedule': 'study-schedule-box',
+                    'balancing school +hobbies': 'balancing-box',
+                    'avoid distractions (phone, games)': 'distractions-box',
+                    'concentration techniques': 'concentration-box',
+                    'sports participation': 'sports-participation-box',
+                    'fitness routines': 'fitness-box',
+                    'clubs, competitions': 'clubs-box',
+                    'hobby development': 'hobby-box',
+                    'growth mindset': 'growth-mindset-box',
+                    'stress handling': 'stress-box',
+                    'motivation': 'motivation-box',
+                    'tips for parents to guide without pressure': 'parent-tips-box',
+                    'awareness about pressure & expectations': 'parent-awareness-box'
+                }[noteText];
+                if (sourceId) {
+                    modalBody.innerHTML = document.getElementById(sourceId).innerHTML;
+                    modalContainer.classList.add('show');
+                }
+            });
+
+            const closeModal = () => modalContainer.classList.remove('show');
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalContainer.addEventListener('click', (e) => {
+                if (e.target === modalContainer) closeModal();
+            });
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-icon-light');
+            const darkIcon = document.getElementById('theme-icon-dark');
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+            };
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+            // --- Search functionality ---
+            const allTopics = document.querySelectorAll('.topic');
+            const allModules = document.querySelectorAll('.module');
+
+            const showNoResults = () => {
+                noResultsMessage.classList.add('show');
+                setTimeout(() => {
+                    noResultsMessage.classList.remove('show');
+                }, 2000);
+            };
+
+            const collapseAllModules = () => {
+                allModules.forEach(module => {
+                    const head = module.querySelector('.module-head');
+                    const body = module.querySelector('.module-body');
+                    head.setAttribute('aria-expanded', 'false');
+                    body.style.maxHeight = '0';
+                    head.classList.remove('active-search');
+                });
+            };
+
+            const expandAllModules = () => {
+                allModules.forEach(module => {
+                    const head = module.querySelector('.module-head');
+                    const body = module.querySelector('.module-body');
+                    head.setAttribute('aria-expanded', 'true');
+                    body.style.maxHeight = body.scrollHeight + 'px';
+                    head.classList.add('active-search');
+                });
+            };
+
+            const removeHighlights = () => {
+                document.querySelectorAll('.highlight').forEach(el => {
+                    const parent = el.parentNode;
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                });
+            };
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                removeHighlights();
+                if (query.length > 0) {
+                    let hasResults = false;
+                    allTopics.forEach(topic => {
+                        const moduleBody = topic.closest('.module-body');
+                        const moduleHead = topic.closest('.module').querySelector('.module-head');
+                        const text = topic.textContent.toLowerCase();
+                        let foundInTopic = false;
+                        if (text.includes(query)) {
+                            foundInTopic = true;
+                            const newText = topic.textContent.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>');
+                            topic.innerHTML = newText;
+                            hasResults = true;
+                        }
+
+                        if (foundInTopic) {
+                            topic.classList.add('is-found');
+                            moduleHead.setAttribute('aria-expanded', 'true');
+                            moduleBody.style.maxHeight = moduleBody.scrollHeight + 'px';
+                        } else {
+                            topic.classList.remove('is-found');
+                        }
+                    });
+
+                    // Hide modules that do not contain search results
+                    allModules.forEach(module => {
+                        const foundTopics = module.querySelectorAll('.topic.is-found');
+                        const body = module.querySelector('.module-body');
+                        const head = module.querySelector('.module-head');
+
+                        if (foundTopics.length > 0) {
+                            body.classList.remove('hidden-search');
+                            head.setAttribute('aria-expanded', 'true');
+                            head.classList.add('active-search');
+                            body.style.maxHeight = body.scrollHeight + 'px';
+                        } else {
+                            body.classList.add('hidden-search');
+                            head.setAttribute('aria-expanded', 'false');
+                            head.classList.remove('active-search');
+                        }
+                    });
+
+                    if (hasResults) {
+                        noResultsMessage.classList.remove('show');
+                    } else {
+                        noResultsMessage.classList.add('show');
+                    }
+                } else {
+                    removeHighlights();
+                    expandAllModules();
+                    allTopics.forEach(t => t.classList.remove('is-found'));
+                    noResultsMessage.classList.remove('show');
+                    allModules.forEach(module => {
+                        const body = module.querySelector('.module-body');
+                        body.classList.remove('hidden-search');
+                    });
+                }
+            });
+            // --- Profile Dropdown Toggle ---
+            const profileBtn = document.getElementById("profileBtn");
+            const profileDropdown = document.getElementById("profileDropdown");
+
+            profileBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle("show");
+            });
+            document.addEventListener("click", (e) => {
+                if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.remove("show");
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

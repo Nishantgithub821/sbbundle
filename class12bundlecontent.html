@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FUTURENEXT — Course Modules</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. MODERN THEME & ROOT VARIABLES --- */
+        :root {
+            --font-main: "Inter", system-ui, -apple-system, sans-serif;
+            /* Light Mode Palette */
+            --bg-light: #f4f7fa;
+            --card-light: #ffffff;
+            --text-main-light: #1a202c;
+            --text-muted-light: #718096;
+            --border-light: #e2e8f0;
+            --accent-light: #3b82f6;
+            --accent-soft-light: #e0e7ff;
+            /* Dark Mode Palette */
+            --bg-dark: #121826;
+            --card-dark: #1a2233;
+            --text-main-dark: #e2e8f0;
+            --text-muted-dark: #a0aec0;
+            --border-dark: #2d3748;
+            --accent-dark: #60a5fa;
+            --accent-soft-dark: #2c3a5e;
+            /* Default to Light Mode */
+            --bg: var(--bg-light);
+            --card: var(--card-light);
+            --text-main: var(--text-main-light);
+            --text-muted: var(--text-muted-light);
+            --border: var(--border-light);
+            --accent: var(--accent-light);
+            --accent-soft: var(--accent-soft-light);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        /* --- 2. DARK MODE THEME SWITCH --- */
+        html.dark {
+            --bg: var(--bg-dark);
+            --card: var(--card-dark);
+            --text-main: var(--text-main-dark);
+            --text-muted: var(--text-muted-dark);
+            --border: var(--border-dark);
+            --accent: var(--accent-dark);
+            --accent-soft: var(--accent-soft-dark);
+            color-scheme: dark;
+        }
+
+        /* --- 3. BASE & LAYOUT STYLES --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 12px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: var(--transition);
+        }
+
+        .layout {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 320px;
+            min-width: 280px;
+            flex-shrink: 0;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            /* Prevents flexbox overflow */
+        }
+
+        /* --- 4. MODERNIZED COMPONENTS --- */
+        /* Topbar with "Glassmorphism" effect */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        html.dark .topbar {
+            background: rgba(26, 34, 51, 0.7);
+        }
+
+        .brand .logo {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 22px;
+        }
+
+        .search-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--card);
+            color: var(--text-main);
+            font-size: 11.5px;
+            outline: none;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 0;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 22px;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        /* Modules / Accordion */
+        .modules {
+            background: var(--card);
+            padding: 12px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .module {
+            margin-bottom: 8px;
+        }
+
+        .module:last-child {
+            margin-bottom: 0;
+        }
+
+        .module-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .module-head:hover {
+            background: var(--accent-soft);
+        }
+
+        .caret {
+            transition: transform 0.3s cubic-bezier(.2, .9, .2, 1);
+        }
+
+        .module-head[aria-expanded="false"] .caret {
+            transform: rotate(-90deg);
+        }
+
+        .module-body {
+            padding: 0 8px 8px;
+            transition: max-height .32s cubic-bezier(.2, .9, .2, 1);
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        .topic {
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin: 4px 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .topic:hover {
+            background: var(--accent-soft);
+            color: var(--text-main);
+        }
+
+        .topic.active {
+            color: var(--accent);
+            font-weight: 600;
+            background: var(--accent-soft);
+            border-left-color: var(--accent);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            height: 100%;
+        }
+
+        .content-card h1 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .content-card p {
+            color: var(--text-muted);
+        }
+
+        .thin-line {
+            border: 0;
+            height: 1px;
+            background-color: var(--border);
+            margin: 24px 0;
+        }
+
+        .notes h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        #notes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #notes-list li {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5;
+            font-weight: 500;
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        #notes-list li.modal-trigger {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        #notes-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .highlight {
+            background: var(--accent);
+            color: white;
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+
+        html.dark .highlight {
+            background: #facc15;
+            /* Yellow in dark mode */
+            color: #1a202c;
+        }
+
+        /* --- 5. ENHANCED MODAL STYLES --- */
+        .modal-container {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-container.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card);
+            color: var(--text-main);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+        }
+
+        .modal-container.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        #modal-close-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        #modal-body h2 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        #modal-body ul,
+        #modal-body ol {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        #modal-body li {
+            margin-bottom: 8px;
+        }
+
+        /* --- 6. RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            .layout {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .module-body.hidden-search {
+            max-height: 0 !important;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        #no-results-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            z-index: 2000;
+            min-width: 300px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        #no-results-message.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* --- Profile Dropdown Styles --- */
+        .profile-menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 110%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 8px 0;
+            min-width: 140px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 8px 14px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">FUTURENEXT</div>
+        </div>
+        <div class="search-wrap">
+            <input id="search" type="search" placeholder="Search lessons, topics..." aria-label="Search modules" />
+        </div>
+        <div class="top-actions">
+            <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                <span id="theme-icon-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                </span>
+                <span id="theme-icon-dark" class="hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </span>
+            </button>
+            <button id="notifBtn" class="icon-btn" title="Notifications">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+            </button>
+
+            <!-- <button id="profileBtn" class="icon-btn" title="Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+            </button> -->
+            <div class="profile-menu-container">
+                <button id="profileBtn" class="icon-btn" title="Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </button>
+
+                <!-- Hidden dropdown -->
+                <div id="profileDropdown" class="dropdown">
+                    <button class="dropdown-item">Login</button>
+                    <button class="dropdown-item">Sign Up</button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <main class="layout">
+        <aside class="sidebar" id="sidebar">
+            <nav id="modules" class="modules">
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 1 — Subject Overviews</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson1-maths">Maths — Quick topics</li>
+                            <li class="topic" data-key="lesson1-science">Science — Quick topics</li>
+                            <li class="topic" data-key="lesson1-english">English — Quick topics</li>
+                            <li class="topic" data-key="lesson1-english">Social Studies – basics + important concepts
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 2 — Study Techniques</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Shortcuts</li>
+                            <li class="topic" data-key="lesson2-notes">Memory Tips</li>
+                            <li class="topic" data-key="lesson2-focus">Concept Understanding</li>
+                            <li class="topic" data-key="lesson2-time">Problem solving approach</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 3 — Board Exam Awareness</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Importance of marks</li>
+                            <li class="topic" data-key="lesson2-notes">Exam Pattern</li>
+                            <li class="topic" data-key="lesson2-focus">preparation schedule</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Career Awareness— Streams Introduction</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Science</li>
+                            <li class="topic" data-key="lesson2-notes">Commerce</li>
+                            <li class="topic" data-key="lesson2-focus">Arts</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Career Awareness— Early Career Awareness</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Sports</li>
+                            <li class="topic" data-key="lesson2-notes">skill-based careers</li>
+                            <li class="topic" data-key="lesson2-focus">vocational options</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development — Soft Skills</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Communication</li>
+                            <li class="topic" data-key="lesson2-notes">presentation</li>
+                            <li class="topic" data-key="lesson2-focus">confidence</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development —Time Management</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Study schedule</li>
+                            <li class="topic" data-key="lesson2-notes">balancing school +hobbies</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Skills Development —Focus & Discipline</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Avoid distractions (phone, games)</li>
+                            <li class="topic" data-key="lesson2-notes">concentration techniques</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Sports & Extracurricular —Physical Growth</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Sports participation</li>
+                            <li class="topic" data-key="lesson2-notes">fitness routines </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Sports & Extracurricular —Extra Activities</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Clubs, competitions</li>
+                            <li class="topic" data-key="lesson2-notes">hobby development </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Mental Growth & Awareness -Mindset</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Growth mindset</li>
+                            <li class="topic" data-key="lesson2-notes">stress handling</li>
+                            <li class="topic" data-key="lesson2-notes"> motivation</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="module">
+                    <button class="module-head" aria-expanded="true">
+                        <span class="module-title">Lesson 4- Mental Growth & Awareness -Parent Involvement</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="module-body">
+                        <ul>
+                            <li class="topic" data-key="lesson2-time">Tips for parents to guide without pressure</li>
+                            <li class="topic" data-key="lesson2-notes">awareness about pressure & expectations</li>
+                        </ul>
+                    </div>
+                </section>
+            </nav>
+        </aside>
+        <section class="content" id="content">
+            <div class="content-card">
+                <h1 id="content-title">Welcome</h1>
+                <p id="content-desc">Select a topic from the sidebar to begin.</p>
+                <hr class="thin-line" />
+                <div class="notes" id="content-notes">
+                    <h3>Key Points</h3>
+                    <ul id="notes-list"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="no-results-message">
+        <h4>No results found 😥</h4>
+        <p>Try searching for something else.</p>
+    </div>
+    <div id="notes-source-content" class="hidden">
+        <div id="algebra-basics">
+            <h2>Algebra Basics — Class 9</h2>
+            <ol>
+                <li><strong>Algebraic Expressions & Terms</strong>
+                    <ul>
+                        <li>Variables, constants, coefficients</li>
+                        <li>Monomials, binomials, polynomials</li>
+                    </ul>
+                </li>
+                <li><strong>Basic Identities & Manipulation</strong>
+                    <ul>
+                        <li>Standard identities: (a+b)², a²−b²</li>
+                        <li>Using identities to expand and factor</li>
+                    </ul>
+                </li>
+                <li><strong>Linear Equations in One Variable</strong>
+                    <ul>
+                        <li>Forming equations from word problems</li>
+                        <li>Solving and checking solutions</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div id="geometry-basics">
+            <h2>Geometry Basics — Class 9</h2>
+            <ol>
+                <li><strong>Lines and Angles</strong>
+                    <ul>
+                        <li>Types of angles: acute, obtuse, right</li>
+                        <li>Complementary & supplementary angles</li>
+                    </ul>
+                </li>
+                <li><strong>Triangles</strong>
+                    <ul>
+                        <li>Classification by sides and angles</li>
+                        <li>Congruence of triangles (SSS, SAS, ASA)</li>
+                    </ul>
+                </li>
+                <li><strong>Surface Areas & Volumes</strong>
+                    <ul>
+                        <li>Formulas for cubes, spheres, cylinders</li>
+                        <li>Real-life applications and problems</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div id="practice-papers">
+            <h2>Practice Old Papers</h2>
+            <ol>
+                <li><strong>Mathematics</strong>
+                    <ul>
+                        <li>Maths Paper 2023</li>
+                        <li>Maths Paper 2022</li>
+                    </ul>
+                </li>
+                <li><strong>Science</strong>
+                    <ul>
+                        <li>Science Paper 2023</li>
+                        <li>Science Paper 2022</li>
+                    </ul>
+                </li>
+                <li><strong>English</strong>
+                    <ul>
+                        <li>English Paper 2023</li>
+                        <li>English Paper 2022</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div id="modal-container" class="modal-container">
+        <div id="modal-content" class="modal-content">
+            <button id="modal-close-btn">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentData = {
+                "lesson1-maths": { title: "Maths — Key Concepts", desc: "Short overview of important maths topics.", notes: ["Algebra basics", "Geometry basics", "Practice old papers"] },
+                "lesson1-science": { title: "Science — Quick Overview", desc: "Physics, Chemistry and Biology pointers.", notes: ["Physics: laws of motion", "Chemistry: periodic table"] },
+                "lesson1-english": { title: "English — Quick Overview", desc: "Tips for comprehension, writing, and grammar.", notes: ["Practice comprehension", "Essay writing"] },
+                "lesson2-time": { title: "Time Management", desc: "Balanced timetable and revision consistency.", notes: ["Use Pomodoro", "Prioritize topics"] },
+                "lesson2-notes": { title: "Note-taking Techniques", desc: "Best note-taking practices.", notes: ["Cornell method", "Mind maps"] },
+                "lesson2-focus": { title: "Focus & Concentration", desc: "Reduce distractions for better sessions.", notes: ["Turn off notifications", "Minimal workspace"] },
+                "lesson2-time": { title: "Board Exam Awareness", desc: "Tips for handling pressure.", notes: ["Study for tests", "Managing expectations"] },
+                "lesson2-time": { title: "Career Awareness", desc: "Career options for future planning.", notes: ["Science Stream", "Commerce Stream", "Arts Stream"] },
+                "lesson2-notes": { title: "Sports & Extracurricular", desc: "Balancing physical and mental growth.", notes: ["Exercise regularly", "Extracurricular activities"] },
+            };
+            const modulesEl = document.getElementById('modules');
+            const contentTitle = document.getElementById('content-title');
+            const contentDesc = document.getElementById('content-desc');
+            const notesList = document.getElementById('notes-list');
+            const modalContainer = document.getElementById('modal-container');
+            const modalBody = document.getElementById('modal-body');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const searchInput = document.getElementById('search');
+            const noResultsMessage = document.getElementById('no-results-message');
+
+            function loadContent(key) {
+                const data = contentData[key];
+                if (!data) return;
+                contentTitle.textContent = data.title;
+                contentDesc.textContent = data.desc;
+                notesList.innerHTML = '';
+                const modalTriggers = ["algebra basics", "geometry basics", "practice old papers"];
+                data.notes.forEach(n => {
+                    const li = document.createElement('li');
+                    li.textContent = n;
+                    if (modalTriggers.includes(n.toLowerCase())) {
+                        li.classList.add('modal-trigger');
+                    }
+                    notesList.appendChild(li);
+                });
+            }
+
+            modulesEl.addEventListener('click', (e) => {
+                const topic = e.target.closest('.topic');
+                if (topic) {
+                    modulesEl.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+                    topic.classList.add('active');
+                    loadContent(topic.dataset.key);
+                }
+                const head = e.target.closest('.module-head');
+                if (head) {
+                    const body = head.nextElementSibling;
+                    const isExpanded = head.getAttribute('aria-expanded') === 'true';
+                    if (!head.classList.contains('active-search')) {
+                        head.setAttribute('aria-expanded', !isExpanded);
+                        body.style.maxHeight = isExpanded ? '0' : body.scrollHeight + 'px';
+                    }
+                }
+            });
+
+            notesList.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('modal-trigger')) return;
+                const noteText = e.target.textContent.toLowerCase().trim();
+                const sourceId = {
+                    'algebra basics': 'algebra-basics',
+                    'geometry basics': 'geometry-basics',
+                    'practice old papers': 'practice-papers'
+                }[noteText];
+                if (sourceId) {
+                    modalBody.innerHTML = document.getElementById(sourceId).innerHTML;
+                    modalContainer.classList.add('show');
+                }
+            });
+
+            const closeModal = () => modalContainer.classList.remove('show');
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalContainer.addEventListener('click', (e) => {
+                if (e.target === modalContainer) closeModal();
+            });
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-icon-light');
+            const darkIcon = document.getElementById('theme-icon-dark');
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+            };
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+            const firstTopic = document.querySelector('.topic');
+            if (firstTopic) {
+                firstTopic.classList.add('active');
+                loadContent(firstTopic.dataset.key);
+            }
+            // sab modules ko by default collapse kar de
+            document.querySelectorAll('.module-body').forEach(body => {
+                body.style.maxHeight = '0'; // 👈 ab koi bhi open nahi hoga
+                const head = body.previousElementSibling;
+                if (head) head.setAttribute('aria-expanded', 'false');
+            });
+
+
+            // --- CORRECTED SEARCH SCRIPT ---
+            const allModules = document.querySelectorAll('.module');
+            let hideMessageTimeout;
+
+            function removeHighlights() {
+                document.querySelectorAll('.highlight').forEach(el => {
+                    const parent = el.parentNode;
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                });
+            }
+
+            function highlightText(text, query) {
+                if (!query) return text;
+                const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(escapedQuery, 'gi');
+                return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+            }
+
+            // 👇 helper to expand all modules after clearing search
+            function expandAllModules() {
+                document.querySelectorAll('.module').forEach(moduleEl => {
+                    const head = moduleEl.querySelector('.module-head');
+                    const body = moduleEl.querySelector('.module-body');
+                    if (head) head.setAttribute('aria-expanded', 'true');
+                    if (body) {
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                        body.querySelectorAll('.topic').forEach(t => t.style.display = '');
+                    }
+                    moduleEl.style.display = '';
+                });
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(hideMessageTimeout);
+                const query = e.target.value.trim().toLowerCase();
+                removeHighlights();
+                let foundAny = false;
+
+                allModules.forEach(moduleEl => {
+                    const moduleTitleSpan = moduleEl.querySelector('.module-title');
+                    const moduleBody = moduleEl.querySelector('.module-body');
+                    const topicsList = moduleBody.querySelector('ul');
+                    const topics = topicsList.querySelectorAll('.topic');
+                    let moduleHasTopicMatch = false;
+                    const originalTitle = moduleTitleSpan.textContent;
+
+                    if (originalTitle.toLowerCase().includes(query)) {
+                        moduleTitleSpan.innerHTML = highlightText(originalTitle, query);
+                        foundAny = true;
+                    } else {
+                        moduleTitleSpan.innerHTML = originalTitle;
+                    }
+
+                    topics.forEach(topic => {
+                        const originalText = topic.textContent;
+                        if (originalText.toLowerCase().includes(query)) {
+                            topic.innerHTML = highlightText(originalText, query);
+                            topic.style.display = '';
+                            moduleHasTopicMatch = true;
+                            foundAny = true;
+                        } else {
+                            topic.innerHTML = originalText;
+                            topic.style.display = 'none';
+                        }
+                    });
+
+                    if (query === '') {
+                        moduleEl.style.display = '';
+                        topicsList.style.display = '';
+                        moduleBody.style.maxHeight = moduleBody.scrollHeight + 'px';
+                    } else {
+                        const moduleTitleMatch = originalTitle.toLowerCase().includes(query);
+                        if (moduleHasTopicMatch || moduleTitleMatch) {
+                            moduleEl.style.display = '';
+                            topicsList.style.display = '';
+                            moduleBody.style.maxHeight = moduleBody.scrollHeight + 'px';
+                        } else {
+                            moduleEl.style.display = 'block';
+                        }
+                    }
+                });
+
+                if (!foundAny && query !== '') {
+                    noResultsMessage.classList.add('show');
+                    hideMessageTimeout = setTimeout(() => {
+                        noResultsMessage.classList.remove('show');
+                        searchInput.value = '';
+                        removeHighlights();
+                        expandAllModules(); // 👈 auto expand fix
+                    }, 2000);
+                } else {
+                    noResultsMessage.classList.remove('show');
+                }
+            });
+        });
+        // --- Profile Dropdown Toggle ---
+        const profileBtn = document.getElementById("profileBtn");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        profileBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // dropdown close hone se rokne ke liye
+            profileDropdown.classList.toggle("show");
+        });
+
+        // agar bahar click kare to dropdown band ho jaye
+        document.addEventListener("click", (e) => {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove("show");
+            }
+        });
+
+    </script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentData = {
+                "lesson1-maths": { title: "Maths — Key Concepts", desc: "Short overview of important maths topics.", notes: ["Algebra basics", "Geometry basics", "Practice old papers"] },
+                "lesson1-science": { title: "Science — Quick Overview", desc: "Physics, Chemistry and Biology pointers.", notes: ["Physics: laws of motion", "Chemistry: periodic table"] },
+                "lesson1-english": { title: "English — Quick Overview", desc: "Tips for comprehension, writing, and grammar.", notes: ["Practice comprehension", "Essay writing"] },
+                "lesson2-time": { title: "Time Management", desc: "Balanced timetable and revision consistency.", notes: ["Use Pomodoro", "Prioritize topics"] },
+                "lesson2-notes": { title: "Note-taking Techniques", desc: "Best note-taking practices.", notes: ["Cornell method", "Mind maps"] },
+                "lesson2-focus": { title: "Focus & Concentration", desc: "Reduce distractions for better sessions.", notes: ["Turn off notifications", "Minimal workspace"] },
+                "lesson2-time": { title: "Board Exam Awareness", desc: "Tips for handling pressure.", notes: ["Study for tests", "Managing expectations"] },
+                "lesson2-time": { title: "Career Awareness", desc: "Career options for future planning.", notes: ["Science Stream", "Commerce Stream", "Arts Stream"] },
+                "lesson2-notes": { title: "Sports & Extracurricular", desc: "Balancing physical and mental growth.", notes: ["Exercise regularly", "Extracurricular activities"] },
+            };
+            const modulesEl = document.getElementById('modules');
+            const contentTitle = document.getElementById('content-title');
+            const contentDesc = document.getElementById('content-desc');
+            const notesList = document.getElementById('notes-list');
+            const modalContainer = document.getElementById('modal-container');
+            const modalBody = document.getElementById('modal-body');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const searchInput = document.getElementById('search');
+            const noResultsMessage = document.getElementById('no-results-message');
+
+            function loadContent(key) {
+                const data = contentData[key];
+                if (!data) return;
+                contentTitle.textContent = data.title;
+                contentDesc.textContent = data.desc;
+                notesList.innerHTML = '';
+                const modalTriggers = ["algebra basics", "geometry basics", "practice old papers"];
+                data.notes.forEach(n => {
+                    const li = document.createElement('li');
+                    li.textContent = n;
+                    if (modalTriggers.includes(n.toLowerCase())) {
+                        li.classList.add('modal-trigger');
+                    }
+                    notesList.appendChild(li);
+                });
+            }
+
+            modulesEl.addEventListener('click', (e) => {
+                const topic = e.target.closest('.topic');
+                if (topic) {
+                    modulesEl.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+                    topic.classList.add('active');
+                    loadContent(topic.dataset.key);
+                }
+                const head = e.target.closest('.module-head');
+                if (head) {
+                    const body = head.nextElementSibling;
+                    const isExpanded = head.getAttribute('aria-expanded') === 'true';
+                    if (!head.classList.contains('active-search')) {
+                        head.setAttribute('aria-expanded', !isExpanded);
+                        body.style.maxHeight = isExpanded ? '0' : body.scrollHeight + 'px';
+                    }
+                }
+            });
+
+            notesList.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('modal-trigger')) return;
+                const noteText = e.target.textContent.toLowerCase().trim();
+                const sourceId = {
+                    'algebra basics': 'algebra-basics',
+                    'geometry basics': 'geometry-basics',
+                    'practice old papers': 'practice-papers'
+                }[noteText];
+                if (sourceId) {
+                    modalBody.innerHTML = document.getElementById(sourceId).innerHTML;
+                    modalContainer.classList.add('show');
+                }
+            });
+
+            const closeModal = () => modalContainer.classList.remove('show');
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalContainer.addEventListener('click', (e) => {
+                if (e.target === modalContainer) closeModal();
+            });
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-icon-light');
+            const darkIcon = document.getElementById('theme-icon-dark');
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+            };
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+            const firstTopic = document.querySelector('.topic');
+            if (firstTopic) {
+                firstTopic.classList.add('active');
+                loadContent(firstTopic.dataset.key);
+            }
+            // sab modules ko by default collapse kar de
+            document.querySelectorAll('.module-body').forEach(body => {
+                body.style.maxHeight = '0'; // 👈 ab koi bhi open nahi hoga
+                const head = body.previousElementSibling;
+                if (head) head.setAttribute('aria-expanded', 'false');
+            });
+
+
+            // --- CORRECTED SEARCH SCRIPT ---
+            const allModules = document.querySelectorAll('.module');
+            let hideMessageTimeout;
+
+            function removeHighlights() {
+                document.querySelectorAll('.highlight').forEach(el => {
+                    const parent = el.parentNode;
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                });
+            }
+
+            function highlightText(text, query) {
+                if (!query) return text;
+                const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(escapedQuery, 'gi');
+                return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+            }
+
+            // 👇 helper to expand all modules after clearing search
+            function expandAllModules() {
+                document.querySelectorAll('.module').forEach(moduleEl => {
+                    const head = moduleEl.querySelector('.module-head');
+                    const body = moduleEl.querySelector('.module-body');
+                    if (head) head.setAttribute('aria-expanded', 'true');
+                    if (body) {
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                        body.querySelectorAll('.topic').forEach(t => t.style.display = '');
+                    }
+                    moduleEl.style.display = '';
+                });
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(hideMessageTimeout);
+                const query = e.target.value.trim().toLowerCase();
+                removeHighlights();
+                let foundAny = false;
+
+                allModules.forEach(moduleEl => {
+                    const moduleTitleSpan = moduleEl.querySelector('.module-title');
+                    const moduleBody = moduleEl.querySelector('.module-body');
+                    const topicsList = moduleBody.querySelector('ul');
+                    const topics = topicsList.querySelectorAll('.topic');
+                    let moduleHasTopicMatch = false;
+                    const originalTitle = moduleTitleSpan.textContent;
+
+                    if (originalTitle.toLowerCase().includes(query)) {
+                        moduleTitleSpan.innerHTML = highlightText(originalTitle, query);
+                        foundAny = true;
+                    } else {
+                        moduleTitleSpan.innerHTML = originalTitle;
+                    }
+
+                    topics.forEach(topic => {
+                        const originalText = topic.textContent;
+                        if (originalText.toLowerCase().includes(query)) {
+                            topic.innerHTML = highlightText(originalText, query);
+                            topic.style.display = '';
+                            moduleHasTopicMatch = true;
+                            foundAny = true;
+                        } else {
+                            topic.innerHTML = originalText;
+                            topic.style.display = 'none';
+                        }
+                    });
+
+                    if (query === '') {
+                        moduleEl.style.display = '';
+                        topicsList.style.display = '';
+                        moduleBody.style.maxHeight = moduleBody.scrollHeight + 'px';
+                    } else {
+                        const moduleTitleMatch = originalTitle.toLowerCase().includes(query);
+                        if (moduleHasTopicMatch || moduleTitleMatch) {
+                            moduleEl.style.display = '';
+                            topicsList.style.display = '';
+                            moduleBody.style.maxHeight = moduleBody.scrollHeight + 'px';
+                        } else {
+                            moduleEl.style.display = 'block';
+                        }
+                    }
+                });
+
+                if (!foundAny && query !== '') {
+                    noResultsMessage.classList.add('show');
+                    hideMessageTimeout = setTimeout(() => {
+                        noResultsMessage.classList.remove('show');
+                        searchInput.value = '';
+                        removeHighlights();
+                        expandAllModules(); // 👈 auto expand fix
+                    }, 2000);
+                } else {
+                    noResultsMessage.classList.remove('show');
+                }
+            });
+        });
+        // --- Profile Dropdown Toggle ---
+        const profileBtn = document.getElementById("profileBtn");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        profileBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // dropdown close hone se rokne ke liye
+            profileDropdown.classList.toggle("show");
+        });
+
+        // agar bahar click kare to dropdown band ho jaye
+        document.addEventListener("click", (e) => {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove("show");
+            }
+        });
+
+    </script>
+</body>
+
+</html>

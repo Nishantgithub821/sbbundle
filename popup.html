@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Popup</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0; padding: 0;
+    }
+    .popup-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #7d2ae8 0%, #00c4ff 100%);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 2000;
+    }
+    .popup-box {
+      background: #fff; padding: 40px 30px 30px;
+      border-radius: 20px; width: 90%; max-width: 450px;
+      text-align: center; position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      animation: popupAppear 0.8s ease;
+    }
+    @keyframes popupAppear {
+      from {transform: scale(0.7); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+    .chatbot-icon {
+      position: absolute; top: -25px; right: -25px;
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, #7d2ae8, #00c4ff);
+      border-radius: 50%; display: flex;
+      justify-content: center; align-items: center;
+      font-size: 28px; color: white;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      animation: floatBot 3s ease-in-out infinite, glowPulse 2s infinite alternate;
+      cursor: pointer;
+    }
+    @keyframes floatBot {
+      0%,100% {transform: translateY(0) rotate(0);}
+      50% {transform: translateY(-10px) rotate(10deg);}
+    }
+    @keyframes glowPulse {
+      0% {box-shadow: 0 0 10px rgba(125, 42, 232, 0.7);}
+      100% {box-shadow: 0 0 25px rgba(0, 196, 255, 0.9);}
+    }
+    .question {
+      display: none; flex-direction: column;
+      margin-bottom: 20px; animation: fadeIn 0.5s ease;
+    }
+    .question.active {display: flex;}
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    label {margin-bottom: 8px; font-weight: 600;}
+    select {
+      padding: 10px; border-radius: 8px;
+      border: 1px solid #ccc; font-size: 15px;
+    }
+    button {
+      margin-top: 15px; padding: 10px 18px; border: none;
+      background: linear-gradient(135deg, #00c4ff, #7d2ae8);
+      color: #fff; border-radius: 8px; cursor: pointer;
+      font-weight: 600; font-size: 15px;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #009ac7, #5a19b3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="popup-overlay">
+    <div class="popup-box">
+      <div class="chatbot-icon">🤖</div>
+
+      <!-- Q1: Class -->
+      <div class="question active" id="q1">
+        <label for="class">Choose Your Class:</label>
+        <select id="class" onchange="updateSubjects()">
+          <option value="">Select Class</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+          <option value="after12">After 12th</option>
+        </select>
+        <button onclick="nextQuestion(2)">Next</button>
+      </div>
+
+      <!-- Q2: Subjects (dynamic) -->
+      <div class="question" id="q2">
+        <label for="subject">Select Your Subjects:</label>
+        <select id="subject">
+          <option value="">Select Subject</option>
+        </select>
+        <button onclick="nextQuestion(3)">Next</button>
+      </div>
+
+      <!-- Q3: Course -->
+      <div class="question" id="q3">
+        <label for="course">Which Course Do You Search For?</label>
+        <select id="course">
+          <option value="">Select Course</option>
+          <option value="resources">Resources</option>
+          <option value="videos">Videos</option>
+          <option value="roadmap">Roadmap</option>
+          <option value="consultancy">Consultancy</option>
+        </select>
+        <button onclick="nextQuestion(4)">Next</button>
+      </div>
+
+      <!-- Q4: Sports -->
+      <div class="question" id="q4">
+        <label for="sports">Sports or Activities?</label>
+        <select id="sports">
+          <option value="">Select Option</option>
+          <option value="yes">Yes, Interested</option>
+          <option value="no">No, Skip</option>
+        </select>
+        <button onclick="finishPopup()">Finish</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function nextQuestion(num) {
+      document.querySelectorAll('.question').forEach(q=>q.classList.remove('active'));
+      document.getElementById('q'+num).classList.add('active');
+    }
+
+    function updateSubjects() {
+      const classVal = document.getElementById('class').value;
+      const subjectSelect = document.getElementById('subject');
+      subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+
+      let subjects = [];
+      if (classVal === "9" || classVal === "10") {
+        subjects = ["Hindi", "English", "Math", "Science", "Social Studies"];
+      } else if (classVal === "11" || classVal === "12") {
+        subjects = ["Physics", "Chemistry", "Maths", "Biology", "English", "Computer Science"];
+      } else if (classVal === "after12") {
+        subjects = ["Medical", "Non-Medical", "Commerce", "Arts & Humanities"];
+      }
+      subjects.forEach(sub => {
+        let opt = document.createElement("option");
+        opt.value = sub.toLowerCase().replace(" ","_");
+        opt.textContent = sub;
+        subjectSelect.appendChild(opt);
+      });
+    }
+
+    function finishPopup(){
+      const classVal=document.getElementById('class').value;
+      const subjectVal=document.getElementById('subject').value;
+      const courseVal=document.getElementById('course').value;
+      const sportsVal=document.getElementById('sports').value;
+
+      localStorage.setItem("userSelections", JSON.stringify({
+        class: classVal, subject: subjectVal, course: courseVal, sports: sportsVal
+      }));
+
+      window.location.href="index.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session - FutureNext</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+    body{background:#f4f7fb;color:#333;}
+    header{background:#1e1e2f;color:white;padding:20px 8%;display:flex;justify-content:space-between;align-items:center;}
+    header h1{font-size:26px;color:#00c4ff;}
+    nav a{margin:0 15px;text-decoration:none;color:white;font-weight:500;transition:color .3s;}
+    nav a:hover{color:#00c4ff;}
+
+    .hero{background:linear-gradient(135deg,#00c4ff,#7d2ae8);color:white;text-align:center;padding:80px 20px;}
+    .hero h2{font-size:42px;margin-bottom:15px;}
+    .hero p{font-size:18px;}
+
+    /* Expert Cards */
+    .session-card{
+      background: linear-gradient(135deg,#e0f7ff,#d3c6ff); /* soft gradient */
+      border-radius:20px;padding:25px;text-align:center;margin:20px 10%;box-shadow:0 10px 25px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s;
+    }
+    .session-card:hover{transform:translateY(-8px);box-shadow:0 15px 35px rgba(0,0,0,.2);}
+    .avatar{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 15px auto;border:4px solid #00c4ff;}
+    
+    /* Form Section */
+    .form-section{
+      background: linear-gradient(135deg,#ffefeb,#fff4f1); /* soft gradient */
+      margin:60px auto;padding:40px;max-width:700px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15);
+    }
+    .form-section h2{text-align:center;margin-bottom:30px;font-size:28px;color:#1e1e2f;}
+
+    .form-group{display:flex;flex-direction:column;margin-bottom:20px;}
+    .form-group label{font-weight:600;margin-bottom:8px;font-size:16px;color:#333;}
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      padding:14px 16px;border-radius:12px;border:1px solid #ccc;font-size:16px;width:100%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      border-color:#00c4ff;box-shadow:0 0 8px rgba(0,196,255,0.3);outline:none;
+    }
+
+    button[type="submit"]{
+      padding:14px;font-size:17px;font-weight:600;border-radius:30px;width:50%;margin:0 auto;display:block;cursor:pointer;
+      background:linear-gradient(135deg,#00c4ff,#7d2ae8);color:white;transition:transform 0.3s, background 0.3s;
+    }
+    button[type="submit"]:hover{
+      transform:scale(1.05);
+      background:linear-gradient(135deg,#009ac7,#5a19b3);
+    }
+
+    footer{background:#1e1e2f;color:white;padding:40px 8% 25px;margin-top:60px;}
+    .footer-bottom{text-align:center;margin-top:20px;font-size:14px;color:#aaa;}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>FutureNext</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Session</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Book Your Session</h2>
+  <p>Choose your expert mentor and get the guidance you need for your future.</p>
+</section>
+
+<!-- Expert Cards -->
+<div class="session-card">
+  <div class="avatar">
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=DoctorSharma" alt="Dr. Sharma Avatar" width="100%" height="100%">
+  </div>
+  <h3>Dr. Sharma</h3>
+  <p>Medical Career Expert</p>
+  <div class="price">₹499 / 30 mins | ₹899 / 1 hour</div>
+  <a href="#book-form" class="btn">Book Now</a>
+</div>
+
+<div class="session-card">
+  <div class="avatar">
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=MrVerma" alt="Mr. Verma Avatar" width="100%" height="100%">
+  </div>
+  <h3>Mr. Verma</h3>
+  <p>Engineering & Tech Guide</p>
+  <div class="price">₹399 / 30 mins | ₹699 / 1 hour</div>
+  <a href="#book-form" class="btn">Book Now</a>
+</div>
+
+<div class="session-card">
+  <div class="avatar">
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=MsGupta" alt="Ms. Gupta Avatar" width="100%" height="100%">
+  </div>
+  <h3>Ms. Gupta</h3>
+  <p>Commerce & Management</p>
+  <div class="price">₹299 / 30 mins | ₹599 / 1 hour</div>
+  <a href="#book-form" class="btn">Book Now</a>
+</div>
+
+<!-- Booking Form -->
+<div class="form-section" id="book-form">
+  <h2>Complete Your Booking</h2>
+  <form id="booking-form">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="fullName" placeholder="Enter your name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    </div>
+    <div class="form-group">
+      <label for="expert">Select Expert</label>
+      <select id="expert" name="expert" required>
+        <option value="">Choose Expert</option>
+        <option value="sharma">Dr. Sharma (Medical)</option>
+        <option value="verma">Mr. Verma (Engineering)</option>
+        <option value="gupta">Ms. Gupta (Commerce)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="slot">Preferred Time Slot</label>
+      <select id="slot" name="slot" required>
+        <option value="">Select Slot</option>
+        <option value="morning">Morning (9AM - 12PM)</option>
+        <option value="afternoon">Afternoon (1PM - 4PM)</option>
+        <option value="evening">Evening (5PM - 8PM)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="message">Additional Notes</label>
+      <textarea id="message" name="message" rows="4" placeholder="Write any specific request..."></textarea>
+    </div>
+    <button type="submit">Submit Details</button>
+  </form>
+</div>
+
+<footer>
+  <div class="footer-bottom">© 2025 FutureNext. All Rights Reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('booking-form').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const data = {
+      fullName: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      expert: document.getElementById('expert').value,
+      slot: document.getElementById('slot').value,
+      message: document.getElementById('message').value
+    };
+
+    fetch('/submit-booking', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(() => {
+      window.location.href = 'payment.html';
+    })
+    .catch(err => console.error(err));
+  });
+</script>
+
+</body>
+</html>
