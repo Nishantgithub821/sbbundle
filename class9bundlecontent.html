@@ -526,6 +526,86 @@
         .dropdown-item:hover {
             background: var(--accent-soft);
             color: var(--accent);
+
+            @media (max-width: 900px) {
+                .layout {
+                    flex-direction: column;
+                    padding: 16px;
+                }
+
+                .sidebar {
+                    width: 100%;
+                    order: 2;
+                    /* Sidebar moves below content */
+                }
+
+                .content {
+                    order: 1;
+                    /* Content comes first */
+                }
+
+                .search-wrap {
+                    max-width: 100%;
+                }
+            }
+
+            @media (max-width: 600px) {
+                body {
+                    font-size: 11px;
+                }
+
+                .topbar {
+                    flex-wrap: wrap;
+                    padding: 10px 16px;
+                }
+
+                .brand .logo {
+                    font-size: 18px;
+                }
+
+                .search-wrap {
+                    order: 3;
+                    width: 100%;
+                    margin-top: 8px;
+                }
+
+                .search-wrap input {
+                    max-width: 100%;
+                    font-size: 11px;
+                }
+
+                .top-actions {
+                    order: 2;
+                    margin-left: auto;
+                }
+
+                .content-card {
+                    padding: 16px;
+                }
+
+                #notes-list {
+                    grid-template-columns: 1fr;
+                    /* single column on small screens */
+                }
+            }
+
+            @media (max-width: 400px) {
+                .icon-btn {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 18px;
+                }
+
+                .module-head {
+                    font-size: 12px;
+                    padding: 10px;
+                }
+
+                .topic {
+                    font-size: 11px;
+                    padding: 8px 10px;
+                }
+            }
         }
     </style>
 </head>
