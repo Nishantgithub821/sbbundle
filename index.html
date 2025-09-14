@@ -18,35 +18,9 @@
       height: 100%;
     }
 
-    body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      color: #fff;
-      background: linear-gradient(45deg, #ff0080, #7928ca, #ff8c00, #e52e71);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-    }
-
-    @keyframes gradientBG {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
     main {
       flex: 1;
     }
-
-    /* ensures footer at bottom */
 
     header {
       background: #1e1e2f;
@@ -65,8 +39,12 @@
       color: #00c4ff;
     }
 
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
     nav a {
-      margin: 0 15px;
       text-decoration: none;
       color: white;
       font-weight: 500;
@@ -75,6 +53,20 @@
 
     nav a:hover {
       color: #00c4ff;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background-color: white;
+      margin-bottom: 5px;
+      border-radius: 5px;
     }
 
     .hero {
@@ -173,7 +165,7 @@
     }
 
     section {
-      padding: 70px 10%;
+      padding: 70px 8%;
     }
 
     h2.section-title {
@@ -183,7 +175,8 @@
       color: #1e1e2f;
     }
 
-    .card-container {
+    .card-container,
+    .footer-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 25px;
@@ -284,12 +277,6 @@
       margin-top: 50px;
     }
 
-    .footer-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-    }
-
     .footer-col h3 {
       margin-bottom: 15px;
       font-size: 18px;
@@ -334,34 +321,96 @@
       font-size: 14px;
       color: #aaa;
     }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 5%;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: #1e1e2f;
+        padding: 20px 0;
+        z-index: 99;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero {
+        padding: 80px 15px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .slider {
+        height: 250px;
+      }
+
+      .slides img {
+        height: 250px;
+      }
+
+      section {
+        padding: 50px 5%;
+      }
+
+      h2.section-title {
+        font-size: 28px;
+      }
+
+      .card-container,
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Header -->
   <header>
     <h1>FutureNext</h1>
-    <nav>
+    <nav id="main-nav">
       <a href="#">Home</a>
       <a href="#resources">Resources</a>
       <a href="#bundles">Bundles</a>
       <a href="#consultancy">Consultancy</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
-  <!-- Main Content -->
   <main>
 
-    <!-- Hero -->
     <section class="hero">
       <h2>Shape Your Future with Expert Guidance</h2>
       <p>From Class 9 to Beyond 12th — Courses, Roadmaps & Personal Consultancy</p>
       <a href="Bookasession.html" class="btn">Book a Session</a>
     </section>
 
-    <!-- Slider -->
     <div class="slider">
       <div class="slides">
         <img src="pic4.avif" alt="Education">
@@ -372,7 +421,6 @@
       </div>
     </div>
 
-    <!-- Resources Section -->
     <section id="resources">
       <h2 class="section-title">Explore Resources</h2>
       <div class="card-container">
@@ -407,7 +455,6 @@
       </div>
     </section>
 
-    <!-- Bundles Section -->
     <section id="bundles">
       <h2 class="section-title">Study Bundles & Roadmaps</h2>
       <div class="card-container">
@@ -439,7 +486,6 @@
       </div>
     </section>
 
-    <!-- Consultancy Section (Second Last) -->
     <section id="consultancy">
       <h2 class="section-title">Book Consultancy Sessions</h2>
       <div class="card-container">
@@ -463,7 +509,6 @@
 
   </main>
 
-  <!-- Footer (Always Last) -->
   <footer id="contact">
     <div class="footer-container">
       <div class="footer-col">
@@ -498,6 +543,11 @@
   </footer>
 
   <script>
+    document.getElementById("menu-toggle").addEventListener("click", function () {
+      var nav = document.getElementById("main-nav");
+      nav.classList.toggle("active");
+    });
+
     window.addEventListener("DOMContentLoaded", () => {
       const saved = localStorage.getItem("userSelections");
       if (saved) {
@@ -506,22 +556,22 @@
         detailsSection.style.padding = "50px 10%";
         detailsSection.style.textAlign = "center";
         detailsSection.innerHTML = `
-        <h2 class="section-title">Your Selected Options</h2>
-        <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:30px;">
-          <div style="background:#7d2ae8;color:white;padding:25px;border-radius:20px;">
-            <h3>Class</h3><p>${data.class || "Not selected"}</p>
+          <h2 class="section-title">Your Selected Options</h2>
+          <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:30px;">
+            <div style="background:#7d2ae8;color:white;padding:25px;border-radius:20px;">
+              <h3>Class</h3><p>${data.class || "Not selected"}</p>
+            </div>
+            <div style="background:#00c4ff;color:white;padding:25px;border-radius:20px;">
+              <h3>Interest</h3><p>${data.interest || "Not selected"}</p>
+            </div>
+            <div style="background:#7d2ae8;color:white;padding:25px;border-radius:20px;">
+              <h3>Course</h3><p>${data.course || "Not selected"}</p>
+            </div>
+            <div style="background:#00c4ff;color:white;padding:25px;border-radius:20px;">
+              <h3>Sports / Activities</h3><p>${data.sports || "Not selected"}</p>
+            </div>
           </div>
-          <div style="background:#00c4ff;color:white;padding:25px;border-radius:20px;">
-            <h3>Interest</h3><p>${data.interest || "Not selected"}</p>
-          </div>
-          <div style="background:#7d2ae8;color:white;padding:25px;border-radius:20px;">
-            <h3>Course</h3><p>${data.course || "Not selected"}</p>
-          </div>
-          <div style="background:#00c4ff;color:white;padding:25px;border-radius:20px;">
-            <h3>Sports / Activities</h3><p>${data.sports || "Not selected"}</p>
-          </div>
-        </div>
-      `;
+        `;
         const footer = document.querySelector("footer");
         footer.parentNode.insertBefore(detailsSection, footer);
       }
