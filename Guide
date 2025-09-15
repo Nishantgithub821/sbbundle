@@ -1,0 +1,5 @@
+agar open kerna hai is procjet ko 
+to jake terminal pe run ker diyyo or chod diyo mongod --dbpath "D:\mongo-data\db"
+and uske bad apne terminal of vs code pe ake ye run ker diyo backend ke ander ye comand cd server2formongo.js 
+and then it shows that the mongodb is connected now index.html file ko run ker 9th class budnle pe click ker and simple form me detials bhar and then succesfull and payment wala scene bad me banayenge 
+booking succesffuly and then hamara page redirect h jayge a9th class pe 
