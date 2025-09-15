@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Career Guide Startup</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', sans-serif
     }
 
     html,
     body {
-      height: 100%;
+      height: 100%
     }
 
     main {
-      flex: 1;
+      flex: 1
     }
 
     header {
@@ -36,70 +36,173 @@
 
     header h1 {
       font-size: 26px;
-      color: #00c4ff;
+      color: #00c4ff
     }
 
+    /* Keep nav links separate */
     nav {
       display: flex;
       gap: 15px;
+      align-items: center
     }
 
     nav a {
       text-decoration: none;
       color: white;
       font-weight: 500;
-      transition: color .3s;
+      transition: color .3s
     }
 
     nav a:hover {
-      color: #00c4ff;
+      color: #00c4ff
     }
 
+    /* Auth area is separate so it doesn't affect nav a */
+    .auth-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-left: 20px;
+      position: relative
+    }
+
+    .auth-btn {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .25s ease;
+      line-height: 1.2
+    }
+
+    .login-btn {
+      background: transparent;
+      border: 2px solid #00c4ff;
+      color: #00c4ff
+    }
+
+    .login-btn:hover {
+      background: #00c4ff;
+      color: white
+    }
+
+    .signup-btn {
+      background: #7d2ae8;
+      color: white;
+      border: 2px solid #7d2ae8
+    }
+
+    .signup-btn:hover {
+      background: #5a19b3;
+      border-color: #5a19b3
+    }
+
+    /* Avatar style */
+    .avatar-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    /* Avatar wrapper (so dropdown can be positioned relative to it) */
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 52px;
+      min-width: 200px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+      overflow: hidden;
+      transform-origin: top right;
+      opacity: 0;
+      transform: scale(.95) translateY(-6px);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events: none;
+      z-index: 1200
+    }
+
+    .dropdown-menu.open {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #222;
+      text-decoration: none;
+      font-size: 14px
+    }
+
+    .dropdown-menu a:hover {
+      background: #f4f4f4
+    }
+
+    /* Keep menu-toggle (hamburger) */
     .menu-toggle {
       display: none;
       flex-direction: column;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .menu-toggle span {
       height: 3px;
       width: 25px;
-      background-color: white;
+      background: #fff;
       margin-bottom: 5px;
-      border-radius: 5px;
+      border-radius: 5px
     }
 
+    /* Hero + sections (unchanged except small tweaks) */
     .hero {
       background: linear-gradient(135deg, #00c4ff, #7d2ae8);
       color: white;
       text-align: center;
-      padding: 100px 20px;
+      padding: 100px 20px
     }
 
     .hero h2 {
       font-size: 48px;
-      margin-bottom: 15px;
+      margin-bottom: 15px
     }
 
     .hero p {
       font-size: 18px;
-      margin-bottom: 25px;
+      margin-bottom: 25px
     }
 
     .hero .btn {
       padding: 12px 30px;
       border: none;
       border-radius: 30px;
-      background: white;
+      background: #fff;
       color: #7d2ae8;
-      font-weight: bold;
-      font-size: 16px;
+      font-weight: 700;
       text-decoration: none;
-      transition: .3s;
+      transition: .3s
     }
 
     .hero .btn:hover {
-      background: #f4f4f4;
+      background: #f4f4f4
     }
 
     .slider {
@@ -110,76 +213,76 @@
       margin: 40px auto;
       overflow: hidden;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .2)
     }
 
     .slides {
       display: flex;
       width: 500%;
       height: 100%;
-      animation: slide 20s infinite;
+      animation: slide 20s infinite
     }
 
     .slides img {
       width: 100%;
       height: 400px;
-      object-fit: cover;
+      object-fit: cover
     }
 
     @keyframes slide {
       0% {
-        margin-left: 0;
+        margin-left: 0
       }
 
       20% {
-        margin-left: 0;
+        margin-left: 0
       }
 
       25% {
-        margin-left: -100%;
+        margin-left: -100%
       }
 
       45% {
-        margin-left: -100%;
+        margin-left: -100%
       }
 
       50% {
-        margin-left: -200%;
+        margin-left: -200%
       }
 
       70% {
-        margin-left: -200%;
+        margin-left: -200%
       }
 
       75% {
-        margin-left: -300%;
+        margin-left: -300%
       }
 
       95% {
-        margin-left: -300%;
+        margin-left: -300%
       }
 
       100% {
-        margin-left: -400%;
+        margin-left: -400%
       }
     }
 
     section {
-      padding: 70px 8%;
+      padding: 70px 8%
     }
 
     h2.section-title {
       text-align: center;
       margin-bottom: 40px;
       font-size: 32px;
-      color: #1e1e2f;
+      color: #1e1e2f
     }
 
     .card-container,
     .footer-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      gap: 25px
     }
 
     .card {
@@ -189,22 +292,22 @@
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
       transition: transform .3s, box-shadow .3s;
-      text-align: center;
+      text-align: center
     }
 
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, .2);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .2)
     }
 
     .card h3 {
       color: #7d2ae8;
-      margin-bottom: 10px;
+      margin-bottom: 10px
     }
 
     .card p {
       color: #555;
-      font-size: 15px;
+      font-size: 15px
     }
 
     .btn-card {
@@ -216,11 +319,11 @@
       border-radius: 25px;
       text-decoration: none;
       font-weight: 600;
-      transition: .3s;
+      transition: .3s
     }
 
     .btn-card:hover {
-      background: #009ac7;
+      background: #009ac7
     }
 
     .price-card {
@@ -229,29 +332,29 @@
       padding: 30px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
       text-align: center;
-      transition: .3s;
+      transition: .3s
     }
 
     .price-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.05)
     }
 
     .price-card h3 {
       color: #7d2ae8;
-      margin-bottom: 10px;
+      margin-bottom: 10px
     }
 
     .price-card p {
       font-size: 14px;
       color: #444;
-      margin-bottom: 15px;
+      margin-bottom: 15px
     }
 
     .price {
       font-size: 20px;
       font-weight: bold;
       color: #00c4ff;
-      margin: 10px 0;
+      margin: 10px 0
     }
 
     .btn-price {
@@ -263,42 +366,42 @@
       border-radius: 25px;
       text-decoration: none;
       font-weight: 600;
-      transition: .3s;
+      transition: .3s
     }
 
     .btn-price:hover {
-      background: #5a19b3;
+      background: #5a19b3
     }
 
     footer {
       background: #1e1e2f;
       color: white;
       padding: 50px 8% 30px;
-      margin-top: 50px;
+      margin-top: 50px
     }
 
     .footer-col h3 {
       margin-bottom: 15px;
       font-size: 18px;
-      color: #00c4ff;
+      color: #00c4ff
     }
 
     .footer-col ul {
-      list-style: none;
+      list-style: none
     }
 
     .footer-col ul li {
-      margin: 8px 0;
+      margin: 8px 0
     }
 
     .footer-col ul li a {
       color: #ccc;
       text-decoration: none;
-      transition: .3s;
+      transition: .3s
     }
 
     .footer-col ul li a:hover {
-      color: white;
+      color: white
     }
 
     .social-links a {
@@ -306,11 +409,11 @@
       margin-right: 12px;
       font-size: 20px;
       color: #ccc;
-      transition: .3s;
+      transition: .3s
     }
 
     .social-links a:hover {
-      color: #00c4ff;
+      color: #00c4ff
     }
 
     .footer-bottom {
@@ -319,13 +422,13 @@
       padding-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, .2);
       font-size: 14px;
-      color: #aaa;
+      color: #aaa
     }
 
-    /* Media Queries for Responsiveness */
-    @media (max-width: 768px) {
+    /* Responsive */
+    @media (max-width:768px) {
       header {
-        padding: 15px 5%;
+        padding: 15px 5%
       }
 
       nav {
@@ -338,48 +441,58 @@
         left: 0;
         background: #1e1e2f;
         padding: 20px 0;
-        z-index: 99;
+        z-index: 99
       }
 
       nav.active {
-        display: flex;
+        display: flex
       }
 
       .menu-toggle {
-        display: flex;
+        display: flex
       }
 
       .hero {
-        padding: 80px 15px;
+        padding: 80px 15px
       }
 
       .hero h2 {
-        font-size: 32px;
+        font-size: 32px
       }
 
       .hero p {
-        font-size: 16px;
+        font-size: 16px
       }
 
       .slider {
-        height: 250px;
+        height: 250px
       }
 
       .slides img {
-        height: 250px;
+        height: 250px
       }
 
       section {
-        padding: 50px 5%;
+        padding: 50px 5%
       }
 
       h2.section-title {
-        font-size: 28px;
+        font-size: 28px
       }
 
       .card-container,
       .footer-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
+      }
+
+      /* put avatar inside header flow on mobile */
+      .auth-buttons {
+        position: relative
+      }
+
+      .dropdown-menu {
+        right: 0;
+        top: 46px
       }
     }
   </style>
@@ -388,7 +501,9 @@
 <body>
 
   <header>
-    <h1>FutureNext</h1>
+    <h1>NICORN</h1>
+
+    <!-- main nav (kept clean) -->
     <nav id="main-nav">
       <a href="#">Home</a>
       <a href="#resources">Resources</a>
@@ -396,15 +511,19 @@
       <a href="#consultancy">Consultancy</a>
       <a href="#contact">Contact</a>
     </nav>
+
+    <!-- auth buttons area (initially shows these, script may replace with avatar) -->
+    <div class="auth-buttons" id="authButtons">
+      <a href="login.html" class="auth-btn login-btn">🔑 Login</a>
+      <a href="signup.html" class="auth-btn signup-btn">📝 Signup</a>
+    </div>
+
     <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
   </header>
 
   <main>
-
     <section class="hero">
       <h2>Shape Your Future with Expert Guidance</h2>
       <p>From Class 9 to Beyond 12th — Courses, Roadmaps & Personal Consultancy</p>
@@ -455,13 +574,12 @@
       </div>
     </section>
 
-    <section id="bundles">
+    <!-- <section id="bundles">
       <h2 class="section-title">Study Bundles & Roadmaps</h2>
       <div class="card-container">
         <div class="card">
           <h3>Class 9</h3>
-          <p>Organized study plans, tuition guidance, subject tips.</p><a href="class9bundlecontent.html"
-            class="btn-card">View Bundle</a>
+          <p>Organized study plans, tuition guidance, subject tips.</p><a href="form.html?id=9th" class="btn-card">View Bundle</a>
         </div>
         <div class="card">
           <h3>Class 10</h3>
@@ -484,7 +602,38 @@
             class="btn-card">View Roadmap</a>
         </div>
       </div>
+    </section> -->
+    <section id="bundles">
+      <h2 class="section-title">Study Bundles & Roadmaps</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Class 9</h3>
+          <p>Organized study plans, tuition guidance, subject tips.</p>
+          <a href="form.html?id=9th" class="btn-card">View Bundle</a>
+        </div>
+        <div class="card">
+          <h3>Class 10</h3>
+          <p>Organized study plans, tuition guidance, subject tips.</p>
+          <a href="form.html?id=10th" class="btn-card">View Bundle</a>
+        </div>
+        <div class="card">
+          <h3>Class 11</h3>
+          <p>Boards, NEET, JEE, Olympiads, sports balance.</p>
+          <a href="form.html?id=11th" class="btn-card">View Bundle</a>
+        </div>
+        <div class="card">
+          <h3>Class 12</h3>
+          <p>Boards, NEET, JEE, Olympiads, sports balance.</p>
+          <a href="form.html?id=12th" class="btn-card">View Bundle</a>
+        </div>
+        <div class="card">
+          <h3>After 12th All options available</h3>
+          <p>Explore higher education, career exams & opportunities.</p>
+          <a href="form.html?id=after12" class="btn-card">View Roadmap</a>
+        </div>
+      </div>
     </section>
+
 
     <section id="consultancy">
       <h2 class="section-title">Book Consultancy Sessions</h2>
@@ -506,13 +655,12 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer id="contact">
     <div class="footer-container">
       <div class="footer-col">
-        <h3>FutureNext</h3>
+        <h3>NICORN</h3>
         <p>Your trusted partner in shaping successful futures through resources, roadmaps & expert consultancy.</p>
       </div>
       <div class="footer-col">
@@ -534,20 +682,23 @@
       </div>
       <div class="footer-col">
         <h3>Contact Us</h3>
-        <p>Email: info@FutureNext.com</p>
+        <p>Email: info@Nicorn.com</p>
         <p>Phone: +91 98765 43210</p>
         <div class="social-links"><a href="#">🌐</a><a href="#">📘</a><a href="#">🐦</a><a href="#">📸</a></div>
       </div>
     </div>
+    <div id="bundles"></div>
     <div class="footer-bottom">© 2025 FutureNext. All Rights Reserved.</div>
   </footer>
 
   <script>
+    // Mobile nav toggle
     document.getElementById("menu-toggle").addEventListener("click", function () {
       var nav = document.getElementById("main-nav");
       nav.classList.toggle("active");
     });
 
+    // load saved user selections (unchanged)
     window.addEventListener("DOMContentLoaded", () => {
       const saved = localStorage.getItem("userSelections");
       if (saved) {
@@ -576,8 +727,89 @@
         footer.parentNode.insertBefore(detailsSection, footer);
       }
     });
-  </script>
 
+    // SINGLE, consolidated avatar/login logic
+    window.addEventListener("DOMContentLoaded", () => {
+      const userEmail = localStorage.getItem("userEmail");
+      const authButtons = document.getElementById("authButtons");
+
+      if (!authButtons) return;
+
+      // If user logged in -> show avatar with dropdown
+      if (userEmail) {
+        const firstLetter = userEmail.charAt(0).toUpperCase();
+
+        // build avatar wrapper and dropdown
+        const wrapper = document.createElement("div");
+        wrapper.className = "avatar-wrapper";
+        wrapper.innerHTML = `
+          <button class="avatar-btn" id="avatarBtn">${firstLetter}</button>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#" id="logoutLink">🚪 Logout</a>
+            <a href="login.html" id="loginAnother">🔄 Login with another account</a>
+          </div>
+        `;
+
+        // remove existing login and signup anchors (if any)
+        // then append wrapper
+        authButtons.innerHTML = "";
+        authButtons.appendChild(wrapper);
+
+        // element refs
+        const avatarBtn = document.getElementById("avatarBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const logoutLink = document.getElementById("logoutLink");
+
+        // toggle dropdown
+        avatarBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          dropdownMenu.classList.toggle("open");
+        });
+
+        // close dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".avatar-wrapper")) {
+            dropdownMenu.classList.remove("open");
+          }
+        });
+
+        // logout action
+        logoutLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("userEmail");
+          // optionally remove other stored user data here
+          // reload to show login/signup again
+          window.location.href = "index.html";
+        });
+
+      } else {
+        // Not logged in: ensure login/signup anchors exist (safe fallback)
+        authButtons.innerHTML = `
+          <a href="login.html" class="auth-btn login-btn">🔑 Login</a>
+          <a href="signup.html" class="auth-btn signup-btn">📝 Signup</a>
+        `;
+      }
+    });
+    async function loadBundles() {
+      try {
+        const res = await fetch('http://localhost:5001/api/bundles');
+        const bundles = await res.json();
+
+        document.getElementById('bundles').innerHTML = bundles.map(b => `
+      <div class="bundle" style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>${b.title}</h3>
+        <p>${b.description}</p>
+        <p><b>Price:</b> ₹${b.price}</p>
+        <button onclick="bookBundle('${b._id}')">Book Now</button>
+      </div>
+    `).join('');
+      } catch (err) {
+        console.error('Error loading bundles:', err);
+      }
+    }
+
+    loadBundles();
+  </script>
 </body>
 
 </html>
