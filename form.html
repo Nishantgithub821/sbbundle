@@ -1,0 +1,268 @@
+<!-- form.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Form</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 25px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .form-box:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 12px 0 6px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #7d2ae8;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background: #7d2ae8;
+      color: #fff;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #5a1dbd;
+    }
+
+    /* Payment Options as cards */
+    .payment-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .payment-card {
+      flex: 1 1 30%;
+      background: #f7f7f7;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .payment-card:hover {
+      background: #eee;
+    }
+
+    .payment-card.active {
+      border-color: #7d2ae8;
+      background: #f0eaff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .payment-card {
+        flex: 1 1 100%;
+      }
+    }
+
+    .qr-code {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .qr-code img {
+      width: 180px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-box">
+    <h2>Book Your Bundle</h2>
+    <form id="bookingForm">
+      <input type="hidden" id="bundleId" name="bundleId">
+
+      <label>Name</label>
+      <input type="text" id="name" required>
+
+      <label>Email</label>
+      <input type="email" id="email" required>
+
+      <label>Phone</label>
+      <input type="text" id="phone" required>
+
+      <h3>Choose Payment Method</h3>
+      <div class="payment-options">
+        <div class="payment-card" data-method="Card">💳 Card</div>
+        <div class="payment-card" data-method="UPI">📱 UPI</div>
+        <div class="payment-card" data-method="NetBanking">🏦 Net Banking</div>
+      </div>
+
+      <!-- Dynamic Fields -->
+      <div id="cardDetails" class="hidden">
+        <label>Card Number</label>
+        <input type="text" placeholder="1234 5678 9012 3456">
+        <label>Expiry Date</label>
+        <input type="text" placeholder="MM/YY">
+        <label>CVV</label>
+        <input type="password" placeholder="***">
+      </div>
+
+      <div id="upiDetails" class="hidden">
+        <div class="qr-code">
+          <p>Scan QR to Pay via GPay/PhonePe</p>
+          <img src="https://i.ibb.co/svY7jTn/default-qr.png" alt="UPI QR">
+        </div>
+      </div>
+
+      <div id="netBankingDetails" class="hidden">
+        <label>Select Bank</label>
+        <select>
+          <option value="">-- Choose Bank --</option>
+          <option value="SBI">SBI</option>
+          <option value="HDFC">HDFC</option>
+          <option value="ICICI">ICICI</option>
+          <option value="AXIS">Axis Bank</option>
+        </select>
+      </div>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </div>
+
+  <script>
+    // ✅ BundleId from URL (normalized)
+    const urlParams = new URLSearchParams(window.location.search);
+    let bundleParam = urlParams.get("id");
+    if (bundleParam) bundleParam = bundleParam.toLowerCase();
+    document.getElementById("bundleId").value = bundleParam;
+
+    // Payment method toggle
+    const cards = document.querySelectorAll(".payment-card");
+    let selectedPayment = null;
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        selectedPayment = card.dataset.method;
+
+        // Hide all sections
+        document.getElementById("cardDetails").classList.add("hidden");
+        document.getElementById("upiDetails").classList.add("hidden");
+        document.getElementById("netBankingDetails").classList.add("hidden");
+
+        // Show selected section
+        if (selectedPayment === "Card") {
+          document.getElementById("cardDetails").classList.remove("hidden");
+        } else if (selectedPayment === "UPI") {
+          document.getElementById("upiDetails").classList.remove("hidden");
+        } else if (selectedPayment === "NetBanking") {
+          document.getElementById("netBankingDetails").classList.remove("hidden");
+        }
+      });
+    });
+
+    // Submit
+    document.getElementById("bookingForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      if (!selectedPayment) {
+        alert("⚠️ Please select a payment method!");
+        return;
+      }
+
+      const bookingData = {
+        bundle: document.getElementById("bundleId").value,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        payment: selectedPayment
+      };
+
+      try {
+        const res = await fetch("http://localhost:5001/api/bookings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookingData)
+        });
+
+        if (res.ok) {
+          alert("✅ Booking successful!");
+
+          const redirectMap = {
+            "9th": "class9bundlecontent.html",
+            "10th": "class10bundlecontent.html",
+            "11th": "class11bundlecontent.html",
+            "12th": "class12bundlecontent.html",
+            "after12": "After12bundlecontent.html"
+          };
+
+          const bundleId = bookingData.bundle;
+          if (redirectMap[bundleId]) {
+            window.location.href = redirectMap[bundleId];
+          } else {
+            window.location.href = "index.html";
+          }
+        } else {
+          alert("❌ Booking failed. Try again.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("⚠️ Error connecting to server.");
+      }
+    });
+  </script>
+</body>
+
+</html>
